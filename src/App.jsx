@@ -104,49 +104,55 @@ const TESTIMONIALS = [
 ]
 
 
+
 function Landing({ setView }) {
   const [openFaq, setOpenFaq] = useState(null)
-  const [msgIdx, setMsgIdx] = useState(5)
+  const [topRow, setTopRow] = useState({ color:'#1a1a1a', ch:'Call', msg:'Sophie M. — Mega Volume booked', time:'now' })
+  const [fade, setFade] = useState(true)
+  const [spotsLeft] = useState(14)
 
   const liveMessages = [
-    { color:'#1a1a1a', ch:'Call',      msg:'Sophie M. — Mega Volume booked',    time:'now' },
-    { color:'#22c55e', ch:'WhatsApp',  msg:'Jade R. — infill pricing enquiry',   time:'2m'  },
-    { color:'#d946ef', ch:'Instagram', msg:'New enquiry — fullset',               time:'5m'  },
-    { color:'#3b82f6', ch:'SMS',       msg:'Reminder sent — Layla B.',            time:'12m' },
-    { color:'#f97316', ch:'Email',     msg:'Priya K. — rescheduled',             time:'18m' },
-    { color:'#22c55e', ch:'WhatsApp',  msg:'Mia T. — booking wispy hybrid',       time:'now' },
-    { color:'#1a1a1a', ch:'Call',      msg:'Aisha B. — classic infill booked',   time:'now' },
-    { color:'#d946ef', ch:'Instagram', msg:'DM — brow lamination enquiry',        time:'3m'  },
-    { color:'#3b82f6', ch:'SMS',       msg:'Chloe W. — confirmed tomorrow',       time:'1m'  },
-    { color:'#f97316', ch:'Email',     msg:'New enquiry — mega volume set',       time:'now' },
+    { color:'#1a1a1a', ch:'Call',      msg:'Sophie M. — Mega Volume booked',   time:'now' },
+    { color:'#22c55e', ch:'WhatsApp',  msg:'Jade R. — infill pricing enquiry',  time:'2m'  },
+    { color:'#d946ef', ch:'Instagram', msg:'New enquiry — fullset consultation', time:'5m'  },
+    { color:'#3b82f6', ch:'SMS',       msg:'Reminder sent — Layla B. tomorrow', time:'12m' },
+    { color:'#f97316', ch:'Email',     msg:'Priya K. — rescheduled to Nov 19',  time:'18m' },
+    { color:'#22c55e', ch:'WhatsApp',  msg:'Mia T. — booking wispy hybrid set', time:'now' },
+    { color:'#1a1a1a', ch:'Call',      msg:'Aisha B. — classic infill booked',  time:'now' },
+    { color:'#d946ef', ch:'Instagram', msg:'DM — brow lamination enquiry',       time:'3m'  },
   ]
 
-  const [topRow, setTopRow] = useState(liveMessages[0])
-  const [fade, setFade] = useState(true)
-
   useEffect(() => {
+    let idx = 1
     const t = setInterval(() => {
       setFade(false)
-      setTimeout(() => {
-        setMsgIdx(i => {
-          const next = (i + 1) % liveMessages.length
-          setTopRow(liveMessages[next])
-          return next
-        })
-        setFade(true)
-      }, 200)
-    }, 2500)
+      setTimeout(() => { setTopRow(liveMessages[idx % liveMessages.length]); setFade(true); idx++ }, 220)
+    }, 2600)
     return () => clearInterval(t)
   }, [])
 
-  const rows = [
-    { color:'#1a1a1a', ch:'Call',      msg:'Sophie M. — Mega Volume booked',  time:'now' },
-    { color:'#22c55e', ch:'WhatsApp',  msg:'Jade R. — infill pricing',         time:'2m'  },
-    { color:'#d946ef', ch:'Instagram', msg:'New enquiry — fullset',             time:'5m'  },
-    { color:'#3b82f6', ch:'SMS',       msg:'Reminder sent — Layla B.',          time:'12m' },
-    { color:'#f97316', ch:'Email',     msg:'Priya K. — rescheduled',           time:'18m' },
+  const staticRows = [
+    { color:'#22c55e', ch:'WhatsApp',  msg:'Jade R. — infill pricing enquiry',  time:'2m'  },
+    { color:'#d946ef', ch:'Instagram', msg:'New enquiry — fullset',              time:'5m'  },
+    { color:'#3b82f6', ch:'SMS',       msg:'Reminder sent — Layla B.',           time:'12m' },
+    { color:'#f97316', ch:'Email',     msg:'Priya K. — rescheduled',            time:'18m' },
   ]
-  rows[0] = topRow
+
+  const comparison = [
+    { label:'Monthly cost',                 human:'£1,500 – £2,500',  aura:'£149' },
+    { label:'Available hours',              human:'9–5, Mon–Fri',      aura:'24 / 7 / 365' },
+    { label:'Sick days',                    human:'Up to 8 per year',  aura:'Zero. Ever.' },
+    { label:'Answers calls mid-appointment',human:'No',                aura:'Always' },
+    { label:'Replies to WhatsApp at midnight',human:'No',              aura:'Instantly' },
+    { label:'Follows up cold leads',        human:'Inconsistently',    aura:'Every single one' },
+    { label:'Sends reminders automatically',human:'Needs reminding',   aura:'Never misses' },
+    { label:'Re-engages lapsed clients',    human:'Rarely',            aura:'Built in' },
+    { label:'Handles Instagram DMs',        human:'Maybe',             aura:'Every time' },
+    { label:'Bad days',                     human:'Yes',               aura:'No' },
+    { label:'Notice period',                human:'4 weeks minimum',   aura:'Cancel anytime' },
+    { label:'Double bookings',              human:'Human error',        aura:'Never' },
+    { label:'Training time',               human:'Weeks',              aura:'24 hours' },
+  ]
 
   const D = "'Cormorant Garamond', Georgia, serif"
   const S = "'DM Sans', system-ui, sans-serif"
@@ -167,101 +173,114 @@ function Landing({ setView }) {
         @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
         @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(0.7)}}
         @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        @keyframes countBlink{0%,100%{opacity:1}50%{opacity:.6}}
         .fu{animation:fadeUp .7s ease both}
         .d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.4s}
-        .blob1{animation:a1 8s ease-in-out infinite}
-        .blob2{animation:a2 10s ease-in-out infinite}
-        .blob3{animation:a3 7s ease-in-out infinite}
-        .blob4{animation:a4 9s ease-in-out infinite}
-        .blob5{animation:a5 11s ease-in-out infinite}
-        .float-card{animation:fadeUp .8s .3s ease both,floatY 5s 1s ease-in-out infinite}
-        .pulse-dot{animation:pulse 2s ease-in-out infinite}
-        .ticker-track{animation:ticker 14s linear infinite}
-        .nav-ghost:hover{background:rgba(255,255,255,.85)!important}
+        .b1{animation:a1 8s ease-in-out infinite}
+        .b2{animation:a2 10s ease-in-out infinite}
+        .b3{animation:a3 7s ease-in-out infinite}
+        .b4{animation:a4 9s ease-in-out infinite}
+        .b5{animation:a5 11s ease-in-out infinite}
+        .fcard{animation:fadeUp .8s .3s ease both,floatY 5s 1s ease-in-out infinite}
+        .pdot{animation:pulse 2s ease-in-out infinite}
+        .tkr{animation:ticker 14s linear infinite}
+        .cmp-row:hover{background:rgba(255,255,255,.7)!important}
+        .cmp-row{transition:background .2s}
+        .spots{animation:countBlink 3s ease-in-out infinite}
+        .btn-main:hover{background:#333!important}
+        .btn-ghost:hover{background:rgba(255,255,255,.9)!important}
         .nav-cta:hover{background:#333!important}
-        .btn-dark:hover{background:#333!important}
-        .btn-soft:hover{background:rgba(255,255,255,.85)!important}
-        .ch-cell:hover{background:rgba(255,255,255,.98)!important}
-        .pc-card:hover{transform:translateY(-3px)}
-        .pc-card{transition:transform .25s}
+        .nav-gh:hover{background:rgba(255,255,255,.85)!important}
       `}</style>
 
-      {/* Grain overlay */}
-      <div style={{ position:'fixed', inset:0, zIndex:3, pointerEvents:'none', opacity:0.55, backgroundImage:grain, backgroundRepeat:'repeat', backgroundSize:'200px' }} />
+      {/* Grain */}
+      <div style={{ position:'fixed',inset:0,zIndex:3,pointerEvents:'none',opacity:.55,backgroundImage:grain,backgroundRepeat:'repeat',backgroundSize:'200px' }} />
 
-      {/* Gradient canvas — behind everything, starts at very top */}
-      <div style={{ position:'fixed', top:0, left:0, width:'100%', height:'100vh', pointerEvents:'none', zIndex:1, overflow:'hidden' }}>
-        {/* Burnt orange */}
-        <div className="blob1" style={{ position:'absolute', width:580, height:580, background:'radial-gradient(circle at center,#f03e00 0%,#ff5500 35%,#ff8c00 60%,transparent 75%)', filter:'blur(75px)', opacity:.75, top:-160, left:-100, borderRadius:'50%' }} />
-        {/* Deep violet */}
-        <div className="blob2" style={{ position:'absolute', width:520, height:520, background:'radial-gradient(circle at center,#6600cc 0%,#8b00ff 35%,#a855f7 60%,transparent 75%)', filter:'blur(80px)', opacity:.7, top:-120, right:-80, borderRadius:'50%' }} />
-        {/* Rich cobalt blue */}
-        <div className="blob3" style={{ position:'absolute', width:440, height:440, background:'radial-gradient(circle at center,#0044cc 0%,#2563eb 35%,#60a5fa 60%,transparent 75%)', filter:'blur(78px)', opacity:.65, top:220, right:40, borderRadius:'50%' }} />
-        {/* Hot magenta */}
-        <div className="blob4" style={{ position:'absolute', width:360, height:360, background:'radial-gradient(circle at center,#cc0066 0%,#ec4899 40%,#f472b6 60%,transparent 75%)', filter:'blur(72px)', opacity:.6, top:260, left:80, borderRadius:'50%' }} />
-        {/* Deep amber */}
-        <div className="blob5" style={{ position:'absolute', width:300, height:300, background:'radial-gradient(circle at center,#d97706 0%,#f59e0b 40%,transparent 70%)', filter:'blur(70px)', opacity:.55, top:80, left:240, borderRadius:'50%' }} />
+      {/* Gradient blobs */}
+      <div style={{ position:'fixed',top:0,left:0,width:'100%',height:'100vh',pointerEvents:'none',zIndex:1,overflow:'hidden' }}>
+        <div className="b1" style={{ position:'absolute',width:580,height:580,background:'radial-gradient(circle,#f03e00 0%,#ff5500 35%,#ff8c00 60%,transparent 75%)',filter:'blur(75px)',opacity:.75,top:-160,left:-100,borderRadius:'50%' }} />
+        <div className="b2" style={{ position:'absolute',width:520,height:520,background:'radial-gradient(circle,#6600cc 0%,#8b00ff 35%,#a855f7 60%,transparent 75%)',filter:'blur(80px)',opacity:.7,top:-120,right:-80,borderRadius:'50%' }} />
+        <div className="b3" style={{ position:'absolute',width:440,height:440,background:'radial-gradient(circle,#0044cc 0%,#2563eb 35%,#60a5fa 60%,transparent 75%)',filter:'blur(78px)',opacity:.65,top:220,right:40,borderRadius:'50%' }} />
+        <div className="b4" style={{ position:'absolute',width:360,height:360,background:'radial-gradient(circle,#cc0066 0%,#ec4899 40%,#f472b6 60%,transparent 75%)',filter:'blur(72px)',opacity:.6,top:260,left:80,borderRadius:'50%' }} />
+        <div className="b5" style={{ position:'absolute',width:300,height:300,background:'radial-gradient(circle,#d97706 0%,#f59e0b 40%,transparent 70%)',filter:'blur(70px)',opacity:.55,top:80,left:240,borderRadius:'50%' }} />
       </div>
 
-      {/* NAV — transparent, no border */}
-      <nav style={{ position:'relative', zIndex:10, display:'flex', alignItems:'center', padding:'22px 52px', background:'transparent' }}>
-        <div style={{ fontFamily:D, fontSize:20, letterSpacing:'.12em', color:'#1a1a1a', flex:1 }}>
-          AURA <span style={{ fontFamily:S, fontSize:8, letterSpacing:'.2em', color:'rgba(0,0,0,.35)', verticalAlign:'middle', marginLeft:8 }}>BY PSC AGENT</span>
+      {/* NAV */}
+      <nav style={{ position:'relative',zIndex:10,display:'flex',alignItems:'center',padding:'22px 52px',background:'transparent' }}>
+        <div style={{ fontFamily:D,fontSize:20,letterSpacing:'.12em',color:'#1a1a1a',flex:1 }}>
+          AURA <span style={{ fontFamily:S,fontSize:8,letterSpacing:'.2em',color:'rgba(0,0,0,.35)',verticalAlign:'middle',marginLeft:8 }}>BY PSC AGENT</span>
         </div>
-        <button className="nav-ghost" onClick={() => setView('login')} style={{ fontFamily:S, fontSize:11, letterSpacing:'.05em', color:'rgba(0,0,0,.55)', background:'rgba(255,255,255,.62)', border:'0.5px solid rgba(0,0,0,.12)', borderRadius:100, padding:'8px 18px', marginRight:8, cursor:'pointer', backdropFilter:'blur(12px)', transition:'background .2s' }}>Client Login</button>
-        <button className="nav-cta" onClick={() => setView('login')} style={{ fontFamily:S, fontSize:11, fontWeight:500, letterSpacing:'.08em', background:'#1a1a1a', color:'#fff', border:'none', padding:'9px 22px', borderRadius:100, cursor:'pointer', transition:'background .2s' }}>Start Free Trial</button>
+        <button className="nav-gh" onClick={() => setView('login')} style={{ fontFamily:S,fontSize:11,letterSpacing:'.05em',color:'rgba(0,0,0,.55)',background:'rgba(255,255,255,.62)',border:'0.5px solid rgba(0,0,0,.12)',borderRadius:100,padding:'8px 18px',marginRight:8,cursor:'pointer',backdropFilter:'blur(12px)',transition:'background .2s' }}>Client Login</button>
+        <button className="nav-cta" onClick={() => setView('login')} style={{ fontFamily:S,fontSize:11,fontWeight:500,letterSpacing:'.08em',background:'#1a1a1a',color:'#fff',border:'none',padding:'9px 22px',borderRadius:100,cursor:'pointer',transition:'background .2s' }}>Start Free Trial</button>
       </nav>
 
-      {/* HERO */}
-      <section style={{ position:'relative', zIndex:10, padding:'32px 52px 64px', display:'grid', gridTemplateColumns:'1fr 1fr', gap:48, alignItems:'center', minHeight:'88vh' }}>
+      {/* ═══ HERO ═══ */}
+      <section style={{ position:'relative',zIndex:10,padding:'32px 52px 72px',display:'grid',gridTemplateColumns:'1fr 1fr',gap:52,alignItems:'center',minHeight:'90vh' }}>
         <div>
-          <div className="fu" style={{ fontFamily:S, fontSize:9, letterSpacing:'.28em', textTransform:'uppercase', color:'rgba(0,0,0,.42)', marginBottom:20, display:'flex', alignItems:'center', gap:8 }}>
-            <span style={{ width:5, height:5, borderRadius:'50%', background:'#f03e00', display:'inline-block' }} />
+          <div className="fu" style={{ fontFamily:S,fontSize:9,letterSpacing:'.28em',textTransform:'uppercase',color:'rgba(0,0,0,.42)',marginBottom:20,display:'flex',alignItems:'center',gap:8 }}>
+            <span style={{ width:5,height:5,borderRadius:'50%',background:'#f03e00',display:'inline-block' }} />
             AI Receptionist for Beauty Businesses
           </div>
-          <h1 className="fu d1" style={{ fontSize:68, lineHeight:.96, fontWeight:400, letterSpacing:'-.022em', marginBottom:24 }}>
+          <h1 className="fu d1" style={{ fontSize:72,lineHeight:.95,fontWeight:400,letterSpacing:'-.022em',marginBottom:20 }}>
             Your clients call.<br />
-            <em style={{ fontStyle:'italic', WebkitTextStroke:'1.5px #1a1a1a', color:'transparent' }}>AURA answers.</em>
+            <em style={{ fontStyle:'italic',WebkitTextStroke:'1.5px #1a1a1a',color:'transparent' }}>AURA answers.</em>
           </h1>
-          <p className="fu d2" style={{ fontFamily:S, fontSize:14, color:'rgba(0,0,0,.5)', lineHeight:1.85, maxWidth:380, marginBottom:28 }}>
+          <p className="fu d2" style={{ fontFamily:S,fontSize:15,color:'rgba(0,0,0,.55)',lineHeight:1.8,maxWidth:400,marginBottom:16 }}>
+            Your AI receptionist and assistant. Always on. Never sick.
+          </p>
+          <p className="fu d2" style={{ fontFamily:S,fontSize:14,color:'rgba(0,0,0,.45)',lineHeight:1.8,maxWidth:400,marginBottom:32 }}>
             AURA handles your calls, WhatsApp, Instagram DMs, SMS and email — so every client gets a reply, on every channel, 24/7.
           </p>
-          <div className="fu d3" style={{ display:'flex', flexWrap:'wrap', gap:6, marginBottom:28 }}>
+          <div className="fu d3" style={{ display:'flex',flexWrap:'wrap',gap:6,marginBottom:32 }}>
             {['Phone Calls','WhatsApp','Instagram DMs','SMS','Email'].map(c => (
-              <span key={c} style={{ fontFamily:S, fontSize:10, letterSpacing:'.04em', color:'rgba(0,0,0,.6)', background:'rgba(255,255,255,.75)', border:'0.5px solid rgba(0,0,0,.12)', borderRadius:100, padding:'5px 12px', backdropFilter:'blur(10px)' }}>{c}</span>
+              <span key={c} style={{ fontFamily:S,fontSize:10,letterSpacing:'.04em',color:'rgba(0,0,0,.6)',background:'rgba(255,255,255,.75)',border:'0.5px solid rgba(0,0,0,.12)',borderRadius:100,padding:'5px 12px',backdropFilter:'blur(10px)' }}>{c}</span>
             ))}
           </div>
-          <div className="fu d4" style={{ display:'flex', gap:10 }}>
-            <button className="btn-dark" onClick={() => setView('login')} style={{ fontFamily:S, fontSize:12, fontWeight:500, letterSpacing:'.07em', background:'#1a1a1a', color:'#fff', border:'none', padding:'13px 26px', borderRadius:100, cursor:'pointer', transition:'background .2s' }}>Start 14-Day Free Trial</button>
-            <button className="btn-soft" onClick={() => setView('login')} style={{ fontFamily:S, fontSize:12, letterSpacing:'.05em', color:'rgba(0,0,0,.6)', background:'rgba(255,255,255,.65)', border:'0.5px solid rgba(0,0,0,.15)', padding:'13px 20px', borderRadius:100, cursor:'pointer', backdropFilter:'blur(10px)', transition:'background .2s' }}>Client Login →</button>
+          <div className="fu d4" style={{ display:'flex',gap:12,marginBottom:16 }}>
+            <button className="btn-main" onClick={() => setView('login')} style={{ fontFamily:S,fontSize:13,fontWeight:500,letterSpacing:'.07em',background:'#1a1a1a',color:'#fff',border:'none',padding:'14px 30px',borderRadius:100,cursor:'pointer',transition:'background .2s' }}>Join the Beta — £149/month</button>
+            <button className="btn-ghost" onClick={() => setView('login')} style={{ fontFamily:S,fontSize:13,letterSpacing:'.05em',color:'rgba(0,0,0,.6)',background:'rgba(255,255,255,.65)',border:'0.5px solid rgba(0,0,0,.15)',padding:'14px 20px',borderRadius:100,cursor:'pointer',backdropFilter:'blur(10px)',transition:'background .2s' }}>Client Login →</button>
           </div>
-          <p style={{ fontFamily:S, fontSize:10, color:'rgba(0,0,0,.3)', marginTop:14, letterSpacing:'.06em' }}>No card required · Cancel any time · Live in 24 hours</p>
+          <div className="fu d4 spots" style={{ fontFamily:S,fontSize:11,color:'rgba(0,0,0,.45)',letterSpacing:'.04em' }}>
+            <span style={{ color:'#f03e00',fontWeight:500 }}>{spotsLeft} beta spots remaining.</span> Price goes up at launch.
+          </div>
         </div>
 
         {/* Live card */}
-        <div className="float-card" style={{ background:'rgba(255,255,255,.85)', backdropFilter:'blur(28px)', WebkitBackdropFilter:'blur(28px)', border:'0.5px solid rgba(255,255,255,.95)', borderRadius:20, overflow:'hidden' }}>
-          <div style={{ padding:'14px 20px', borderBottom:'0.5px solid rgba(0,0,0,.06)', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+        <div className="fcard" style={{ background:'rgba(255,255,255,.85)',backdropFilter:'blur(28px)',border:'0.5px solid rgba(255,255,255,.95)',borderRadius:20,overflow:'hidden' }}>
+          <div style={{ padding:'16px 20px',borderBottom:'0.5px solid rgba(0,0,0,.06)',display:'flex',alignItems:'center',justifyContent:'space-between' }}>
             <div>
-              <div style={{ fontFamily:D, fontSize:15, color:'#1a1a1a' }}>AURA is active</div>
-              <div style={{ fontFamily:S, fontSize:9, color:'rgba(0,0,0,.35)', marginTop:2 }}>Monitoring all channels</div>
+              <div style={{ fontFamily:D,fontSize:16,color:'#1a1a1a' }}>AURA is active</div>
+              <div style={{ fontFamily:S,fontSize:9,color:'rgba(0,0,0,.35)',marginTop:2 }}>Monitoring all 5 channels</div>
             </div>
-            <div className="pulse-dot" style={{ width:8, height:8, borderRadius:'50%', background:'#22c55e' }} />
+            <div className="pdot" style={{ width:8,height:8,borderRadius:'50%',background:'#22c55e' }} />
           </div>
-          {rows.map((r, i) => (
-            <div key={i} style={{ padding:'10px 20px', borderBottom: i < 4 ? '0.5px solid rgba(0,0,0,.04)' : 'none', display:'grid', gridTemplateColumns:'8px 1fr auto', gap:10, alignItems:'center', opacity: i === 0 ? (fade ? 1 : 0) : 1, transform: i === 0 ? (fade ? 'translateY(0)' : 'translateY(-6px)') : 'none', transition: i === 0 ? 'opacity .35s ease, transform .35s ease' : 'none' }}>
-              <div style={{ width:7, height:7, borderRadius:'50%', background:r.color }} />
+
+          {/* Animated top row */}
+          <div style={{ padding:'10px 20px',borderBottom:'0.5px solid rgba(0,0,0,.04)',display:'grid',gridTemplateColumns:'8px 1fr auto',gap:10,alignItems:'center',opacity:fade?1:0,transform:fade?'translateY(0)':'translateY(-6px)',transition:'opacity .3s ease,transform .3s ease' }}>
+            <div style={{ width:7,height:7,borderRadius:'50%',background:topRow.color }} />
+            <div>
+              <div style={{ fontFamily:S,fontSize:8,letterSpacing:'.12em',textTransform:'uppercase',color:'rgba(0,0,0,.3)',marginBottom:2 }}>{topRow.ch}</div>
+              <div style={{ fontFamily:S,fontSize:11,color:'#1a1a1a',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis' }}>{topRow.msg}</div>
+            </div>
+            <div style={{ fontFamily:S,fontSize:9,color:'rgba(0,0,0,.28)' }}>{topRow.time}</div>
+          </div>
+
+          {staticRows.map((r,i) => (
+            <div key={i} style={{ padding:'10px 20px',borderBottom:i<3?'0.5px solid rgba(0,0,0,.04)':'none',display:'grid',gridTemplateColumns:'8px 1fr auto',gap:10,alignItems:'center' }}>
+              <div style={{ width:7,height:7,borderRadius:'50%',background:r.color }} />
               <div>
-                <div style={{ fontFamily:S, fontSize:8, letterSpacing:'.12em', textTransform:'uppercase', color:'rgba(0,0,0,.3)', marginBottom:2 }}>{r.ch}</div>
-                <div style={{ fontFamily:S, fontSize:11, color:'#1a1a1a', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>{r.msg}</div>
+                <div style={{ fontFamily:S,fontSize:8,letterSpacing:'.12em',textTransform:'uppercase',color:'rgba(0,0,0,.3)',marginBottom:2 }}>{r.ch}</div>
+                <div style={{ fontFamily:S,fontSize:11,color:'#1a1a1a',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis' }}>{r.msg}</div>
               </div>
-              <div style={{ fontFamily:S, fontSize:9, color:'rgba(0,0,0,.28)' }}>{r.time}</div>
+              <div style={{ fontFamily:S,fontSize:9,color:'rgba(0,0,0,.28)' }}>{r.time}</div>
             </div>
           ))}
-          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', background:'rgba(0,0,0,.02)' }}>
-            {[{n:'8',l:'Handled'},{n:'5',l:'Booked'},{n:'0',l:'Missed'}].map((s,i) => (
-              <div key={i} style={{ padding:'12px 8px', textAlign:'center', borderRight: i < 2 ? '0.5px solid rgba(0,0,0,.05)' : 'none' }}>
-                <div style={{ fontFamily:D, fontSize:22, color:'#1a1a1a' }}>{s.n}</div>
-                <div style={{ fontFamily:S, fontSize:8, color:'rgba(0,0,0,.32)', letterSpacing:'.06em' }}>{s.l}</div>
+
+          <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',background:'rgba(0,0,0,.02)' }}>
+            {[{n:'8',l:'Handled today'},{n:'5',l:'Booked today'},{n:'0',l:'Missed'}].map((s,i) => (
+              <div key={i} style={{ padding:'14px 8px',textAlign:'center',borderRight:i<2?'0.5px solid rgba(0,0,0,.05)':'none' }}>
+                <div style={{ fontFamily:D,fontSize:24,color:'#1a1a1a' }}>{s.n}</div>
+                <div style={{ fontFamily:S,fontSize:8,color:'rgba(0,0,0,.32)',letterSpacing:'.06em' }}>{s.l}</div>
               </div>
             ))}
           </div>
@@ -269,105 +288,204 @@ function Landing({ setView }) {
       </section>
 
       {/* TICKER */}
-      <div style={{ position:'relative', zIndex:10, borderTop:'0.5px solid rgba(0,0,0,.07)', borderBottom:'0.5px solid rgba(0,0,0,.07)', padding:'10px 0', overflow:'hidden', background:'rgba(255,255,255,.5)', backdropFilter:'blur(8px)' }}>
-        <div className="ticker-track" style={{ display:'flex', width:'max-content' }}>
+      <div style={{ position:'relative',zIndex:10,borderTop:'0.5px solid rgba(0,0,0,.07)',borderBottom:'0.5px solid rgba(0,0,0,.07)',padding:'10px 0',overflow:'hidden',background:'rgba(255,255,255,.5)',backdropFilter:'blur(8px)' }}>
+        <div className="tkr" style={{ display:'flex',width:'max-content' }}>
           {['Phone Calls','—','WhatsApp','—','Instagram DMs','—','SMS','—','Email','—','Phone Calls','—','WhatsApp','—','Instagram DMs','—','SMS','—','Email','—'].map((t,i) => (
-            <span key={i} style={{ fontFamily:S, fontSize:9, letterSpacing:'.22em', textTransform:'uppercase', color:'rgba(0,0,0,.4)', padding:'0 24px', whiteSpace:'nowrap' }}>{t}</span>
+            <span key={i} style={{ fontFamily:S,fontSize:9,letterSpacing:'.22em',textTransform:'uppercase',color:'rgba(0,0,0,.38)',padding:'0 22px',whiteSpace:'nowrap' }}>{t}</span>
           ))}
         </div>
       </div>
 
-      {/* CHANNELS */}
-      <section style={{ position:'relative', zIndex:10, padding:'52px 52px', borderBottom:'0.5px solid rgba(0,0,0,.07)', background:'rgba(255,255,255,.4)', backdropFilter:'blur(14px)' }}>
-        <div style={{ fontFamily:S, fontSize:9, letterSpacing:'.26em', textTransform:'uppercase', color:'rgba(0,0,0,.32)', marginBottom:28 }}>Every Channel. One Agent.</div>
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(5,1fr)', gap:1, background:'rgba(0,0,0,.06)', border:'0.5px solid rgba(0,0,0,.06)', borderRadius:16, overflow:'hidden' }}>
-          {[
-            { n:'01', name:'Phone Calls',   desc:'Answers every call, books appointments and handles FAQs live.' },
-            { n:'02', name:'WhatsApp',       desc:'Clients message your number. AURA replies and books instantly.' },
-            { n:'03', name:'SMS',            desc:'Automated reminders with two-way reply handling.' },
-            { n:'04', name:'Instagram DMs',  desc:'Every inbox enquiry gets an instant intelligent response.' },
-            { n:'05', name:'Email',          desc:'Professional replies to every email. Zero backlog.' },
-          ].map(c => (
-            <div key={c.n} className="ch-cell" style={{ background:'rgba(255,255,255,.9)', padding:'22px 16px', transition:'background .2s' }}>
-              <div style={{ fontSize:32, color:'rgba(0,0,0,.05)', marginBottom:6, lineHeight:1 }}>{c.n}</div>
-              <div style={{ fontFamily:D, fontSize:15, color:'#1a1a1a', marginBottom:5 }}>{c.name}</div>
-              <div style={{ fontFamily:S, fontSize:10, color:'rgba(0,0,0,.38)', lineHeight:1.65 }}>{c.desc}</div>
-            </div>
-          ))}
+      {/* ═══ PROBLEM SECTION ═══ */}
+      <section style={{ position:'relative',zIndex:10,padding:'80px 52px',background:'rgba(255,255,255,.4)',backdropFilter:'blur(12px)',borderBottom:'0.5px solid rgba(0,0,0,.07)' }}>
+        <div style={{ maxWidth:720,margin:'0 auto',textAlign:'center' }}>
+          <div style={{ fontFamily:S,fontSize:9,letterSpacing:'.26em',textTransform:'uppercase',color:'rgba(0,0,0,.32)',marginBottom:20 }}>The Problem</div>
+          <h2 style={{ fontFamily:D,fontSize:52,fontWeight:400,lineHeight:1.08,letterSpacing:'-.015em',marginBottom:32,color:'#1a1a1a' }}>
+            You are losing money<br />
+            <em style={{ fontStyle:'italic',WebkitTextStroke:'1px #1a1a1a',color:'transparent' }}>every single day.</em>
+          </h2>
+          <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:1,background:'rgba(0,0,0,.06)',borderRadius:16,overflow:'hidden',marginBottom:48 }}>
+            {[
+              { stat:'Every missed call',   impact:'is a booking that went to someone else.' },
+              { stat:'Every unanswered DM', impact:'is a client who found another studio.' },
+              { stat:'Every forgotten reminder', impact:'is a no-show you didn\'t get paid for.' },
+            ].map((p,i) => (
+              <div key={i} style={{ background:'rgba(255,255,255,.88)',padding:'32px 24px',textAlign:'center' }}>
+                <div style={{ fontFamily:D,fontSize:20,color:'#1a1a1a',marginBottom:10 }}>{p.stat}</div>
+                <div style={{ fontFamily:S,fontSize:13,color:'rgba(0,0,0,.45)',lineHeight:1.7 }}>{p.impact}</div>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontFamily:S,fontSize:15,color:'rgba(0,0,0,.5)',lineHeight:1.85,marginBottom:20,maxWidth:560,margin:'0 auto 20px' }}>
+            You built this business with your hands. You cannot also be the receptionist, the assistant, the follow-up machine and the person behind the chair — all at once.
+          </p>
+          <p style={{ fontFamily:S,fontSize:15,color:'rgba(0,0,0,.5)',lineHeight:1.85,marginBottom:32 }}>
+            Something has to give. And right now, it's revenue.
+          </p>
+          <div style={{ fontFamily:D,fontSize:28,color:'#1a1a1a',fontStyle:'italic',letterSpacing:'-.01em' }}>
+            AURA fixes this. Completely.
+          </div>
         </div>
       </section>
 
-      {/* STATS */}
-      <section style={{ position:'relative', zIndex:10, display:'grid', gridTemplateColumns:'1fr 1fr 1fr', borderBottom:'0.5px solid rgba(0,0,0,.07)', background:'rgba(255,255,255,.45)', backdropFilter:'blur(8px)' }}>
-        {[{v:'£320',l:'Average monthly revenue lost to no-shows per solo tech'},{v:'67%',l:'Of missed messages that never get a reply'},{v:'94%',l:'Client satisfaction after switching to AURA'}].map((s,i) => (
-          <div key={i} style={{ padding:'36px 28px', textAlign:'center', borderRight: i < 2 ? '0.5px solid rgba(0,0,0,.07)' : 'none' }}>
-            <div style={{ fontFamily:D, fontSize:56, color:'#1a1a1a', lineHeight:1, marginBottom:10 }}>{s.v}</div>
-            <div style={{ fontFamily:S, fontSize:11, color:'rgba(0,0,0,.38)', lineHeight:1.6, maxWidth:160, margin:'0 auto' }}>{s.l}</div>
+      {/* ═══ COMPARISON ═══ */}
+      <section style={{ position:'relative',zIndex:10,padding:'80px 52px',borderBottom:'0.5px solid rgba(0,0,0,.07)',background:'rgba(255,255,255,.35)',backdropFilter:'blur(10px)' }}>
+        <div style={{ maxWidth:860,margin:'0 auto' }}>
+          <div style={{ fontFamily:S,fontSize:9,letterSpacing:'.26em',textTransform:'uppercase',color:'rgba(0,0,0,.32)',marginBottom:20 }}>The Comparison</div>
+          <h2 style={{ fontFamily:D,fontSize:52,fontWeight:400,lineHeight:1.08,letterSpacing:'-.015em',marginBottom:48 }}>
+            What you're paying<br />
+            <em style={{ fontStyle:'italic',WebkitTextStroke:'1px #1a1a1a',color:'transparent' }}>for silence.</em>
+          </h2>
+
+          {/* Table */}
+          <div style={{ border:'0.5px solid rgba(0,0,0,.08)',borderRadius:16,overflow:'hidden' }}>
+            {/* Header */}
+            <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',background:'rgba(0,0,0,.03)',padding:'14px 24px',gap:0 }}>
+              <div style={{ fontFamily:S,fontSize:10,letterSpacing:'.14em',textTransform:'uppercase',color:'rgba(0,0,0,.32)' }}></div>
+              <div style={{ fontFamily:S,fontSize:10,letterSpacing:'.14em',textTransform:'uppercase',color:'rgba(0,0,0,.32)',textAlign:'center' }}>Human Receptionist</div>
+              <div style={{ fontFamily:S,fontSize:10,letterSpacing:'.14em',textTransform:'uppercase',color:'#1a1a1a',textAlign:'center',fontWeight:500 }}>AURA</div>
+            </div>
+
+            {comparison.map((row,i) => (
+              <div key={i} className="cmp-row" style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',padding:'14px 24px',borderTop:'0.5px solid rgba(0,0,0,.06)',background:i%2===0?'rgba(255,255,255,.75)':'rgba(255,255,255,.55)',alignItems:'center',gap:0 }}>
+                <div style={{ fontFamily:S,fontSize:12,color:'rgba(0,0,0,.55)' }}>{row.label}</div>
+                <div style={{ fontFamily:S,fontSize:13,color:'rgba(0,0,0,.4)',textAlign:'center' }}>{row.human}</div>
+                <div style={{ fontFamily:S,fontSize:13,color:'#1a1a1a',textAlign:'center',fontWeight:500 }}>{row.aura}</div>
+              </div>
+            ))}
+
+            {/* Price highlight row */}
+            <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',padding:'20px 24px',borderTop:'1px solid rgba(0,0,0,.1)',background:'#1a1a1a',alignItems:'center' }}>
+              <div style={{ fontFamily:S,fontSize:12,color:'rgba(255,255,255,.6)' }}>Monthly cost</div>
+              <div style={{ fontFamily:D,fontSize:28,color:'rgba(255,255,255,.4)',textAlign:'center' }}>£1,500+</div>
+              <div style={{ fontFamily:D,fontSize:36,color:'#fff',textAlign:'center' }}>£149</div>
+            </div>
+          </div>
+
+          {/* Below table statement */}
+          <div style={{ marginTop:40,textAlign:'center' }}>
+            <p style={{ fontFamily:D,fontSize:26,color:'#1a1a1a',lineHeight:1.4,marginBottom:8 }}>
+              A part-time receptionist costs over £1,500 a month.
+            </p>
+            <p style={{ fontFamily:D,fontSize:26,color:'#1a1a1a',lineHeight:1.4,marginBottom:8,fontStyle:'italic' }}>
+              AURA costs £149.
+            </p>
+            <p style={{ fontFamily:S,fontSize:14,color:'rgba(0,0,0,.45)',marginTop:12,letterSpacing:'.04em' }}>
+              Same job. Every channel. Every hour.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ STATS ═══ */}
+      <section style={{ position:'relative',zIndex:10,display:'grid',gridTemplateColumns:'1fr 1fr 1fr',borderBottom:'0.5px solid rgba(0,0,0,.07)',background:'rgba(255,255,255,.45)',backdropFilter:'blur(8px)' }}>
+        {[
+          { val:'£1,500+', lbl:'What a receptionist costs per month' },
+          { val:'24 / 7',  lbl:'Hours AURA works vs 9–5 for a human' },
+          { val:'£149',    lbl:'AURA. All in. Every channel.' },
+        ].map((s,i) => (
+          <div key={i} style={{ padding:'44px 28px',textAlign:'center',borderRight:i<2?'0.5px solid rgba(0,0,0,.07)':'none' }}>
+            <div style={{ fontFamily:D,fontSize:52,color:'#1a1a1a',lineHeight:1,marginBottom:12 }}>{s.val}</div>
+            <div style={{ fontFamily:S,fontSize:12,color:'rgba(0,0,0,.38)',lineHeight:1.6,maxWidth:160,margin:'0 auto' }}>{s.lbl}</div>
           </div>
         ))}
       </section>
 
-      {/* PRICING */}
-      <section style={{ position:'relative', zIndex:10, padding:'52px 52px', borderBottom:'0.5px solid rgba(0,0,0,.07)', background:'rgba(255,255,255,.35)', backdropFilter:'blur(8px)' }}>
-        <div style={{ fontFamily:S, fontSize:9, letterSpacing:'.26em', textTransform:'uppercase', color:'rgba(0,0,0,.32)', marginBottom:14 }}>Pricing</div>
-        <h2 style={{ fontFamily:D, fontSize:44, fontWeight:400, color:'#1a1a1a', marginBottom:28, letterSpacing:'-.01em' }}>
-          Straightforward.<br /><em style={{ fontStyle:'italic', WebkitTextStroke:'1px #1a1a1a', color:'transparent' }}>No surprises.</em>
-        </h2>
-        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:14 }}>
-          {PRICING.map(p => (
-            <div key={p.tier} className="pc-card" style={{ background:'rgba(255,255,255,.85)', border: p.highlight ? '1px solid #1a1a1a' : '0.5px solid rgba(0,0,0,.09)', borderRadius:16, padding:'24px 20px', backdropFilter:'blur(16px)', position:'relative' }}>
-              {p.badge && <div style={{ position:'absolute', top:-11, left:'50%', transform:'translateX(-50%)', background:'#1a1a1a', color:'#fff', fontFamily:S, fontSize:9, fontWeight:600, padding:'3px 14px', borderRadius:100, letterSpacing:'.08em', whiteSpace:'nowrap' }}>{p.badge}</div>}
-              <div style={{ fontFamily:S, fontSize:9, letterSpacing:'.2em', textTransform:'uppercase', color:'rgba(0,0,0,.32)', marginBottom:8 }}>{p.tier}</div>
-              <div style={{ marginBottom:8 }}>
-                <span style={{ fontFamily:D, fontSize:44, color:'#1a1a1a', lineHeight:1 }}>{p.price}</span>
-                <span style={{ fontFamily:S, fontSize:11, color:'rgba(0,0,0,.32)' }}>{p.period}</span>
-              </div>
-              <p style={{ fontFamily:S, fontSize:11, color:'rgba(0,0,0,.42)', lineHeight:1.6, marginBottom:14, paddingBottom:12, borderBottom:'0.5px solid rgba(0,0,0,.07)' }}>{p.desc}</p>
-              {p.features.map((f,i) => (
-                <div key={i} style={{ fontFamily:S, fontSize:10, color:'rgba(0,0,0,.55)', padding:'5px 0', borderBottom:'0.5px solid rgba(0,0,0,.05)', display:'flex', gap:8 }}><span>—</span>{f}</div>
-              ))}
-              <button onClick={() => setView('login')} style={{ width:'100%', marginTop:16, padding:'11px 0', borderRadius:100, fontFamily:S, fontSize:11, fontWeight:500, letterSpacing:'.06em', cursor:'pointer', background: p.highlight ? '#1a1a1a' : 'transparent', color: p.highlight ? '#fff' : '#1a1a1a', border: p.highlight ? 'none' : '0.5px solid rgba(0,0,0,.2)' }}>{p.cta}</button>
+      {/* ═══ CHANNELS ═══ */}
+      <section style={{ position:'relative',zIndex:10,padding:'72px 52px',borderBottom:'0.5px solid rgba(0,0,0,.07)',background:'rgba(255,255,255,.4)',backdropFilter:'blur(14px)' }}>
+        <div style={{ fontFamily:S,fontSize:9,letterSpacing:'.26em',textTransform:'uppercase',color:'rgba(0,0,0,.32)',marginBottom:28 }}>Every Channel. One Agent.</div>
+        <div style={{ display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:1,background:'rgba(0,0,0,.06)',border:'0.5px solid rgba(0,0,0,.06)',borderRadius:16,overflow:'hidden' }}>
+          {[
+            { n:'01', name:'Phone Calls',   desc:'Answers every call, books appointments and handles FAQs live.' },
+            { n:'02', name:'WhatsApp',       desc:'Clients message your number. AURA replies and books instantly.' },
+            { n:'03', name:'SMS',            desc:'Automated reminders with two-way reply handling.' },
+            { n:'04', name:'Instagram DMs',  desc:'Every inbox enquiry gets an instant, intelligent response.' },
+            { n:'05', name:'Email',          desc:'Professional replies to every email. Zero backlog.' },
+          ].map(c => (
+            <div key={c.n} style={{ background:'rgba(255,255,255,.9)',padding:'24px 18px' }}>
+              <div style={{ fontSize:32,color:'rgba(0,0,0,.05)',marginBottom:8,lineHeight:1 }}>{c.n}</div>
+              <div style={{ fontFamily:D,fontSize:16,color:'#1a1a1a',marginBottom:6 }}>{c.name}</div>
+              <div style={{ fontFamily:S,fontSize:10,color:'rgba(0,0,0,.38)',lineHeight:1.65 }}>{c.desc}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* FAQ */}
-      <section style={{ position:'relative', zIndex:10, padding:'52px 52px', borderBottom:'0.5px solid rgba(0,0,0,.07)', background:'rgba(255,255,255,.3)', backdropFilter:'blur(8px)' }}>
-        <div style={{ maxWidth:640, margin:'0 auto' }}>
-          <h2 style={{ fontFamily:D, fontSize:40, fontWeight:400, color:'#1a1a1a', textAlign:'center', marginBottom:40 }}>Questions</h2>
+      {/* ═══ PRICING ═══ */}
+      <section style={{ position:'relative',zIndex:10,padding:'80px 52px',borderBottom:'0.5px solid rgba(0,0,0,.07)',background:'rgba(255,255,255,.35)',backdropFilter:'blur(8px)' }}>
+        <div style={{ maxWidth:560,margin:'0 auto',textAlign:'center' }}>
+          <div style={{ fontFamily:S,fontSize:9,letterSpacing:'.26em',textTransform:'uppercase',color:'rgba(0,0,0,.32)',marginBottom:20 }}>Pricing</div>
+          <h2 style={{ fontFamily:D,fontSize:52,fontWeight:400,lineHeight:1.08,letterSpacing:'-.015em',marginBottom:16 }}>
+            One price.<br /><em style={{ fontStyle:'italic',WebkitTextStroke:'1px #1a1a1a',color:'transparent' }}>No surprises.</em>
+          </h2>
+
+          <div style={{ background:'rgba(255,255,255,.88)',border:'1px solid rgba(0,0,0,.1)',borderRadius:20,padding:'44px 40px',marginBottom:24,backdropFilter:'blur(16px)' }}>
+            <div style={{ fontFamily:S,fontSize:10,letterSpacing:'.2em',textTransform:'uppercase',color:'rgba(0,0,0,.35)',marginBottom:12 }}>Beta Access</div>
+            <div style={{ fontFamily:D,fontSize:80,color:'#1a1a1a',lineHeight:1,marginBottom:4 }}>£149</div>
+            <div style={{ fontFamily:S,fontSize:14,color:'rgba(0,0,0,.4)',marginBottom:28 }}>per month · cancel anytime</div>
+
+            <div style={{ borderTop:'0.5px solid rgba(0,0,0,.08)',paddingTop:24,marginBottom:28 }}>
+              {['Every channel included — calls, WhatsApp, Instagram, SMS, email','Unlimited inbound calls and messages','Outbound reminders sent automatically','AI sales agent — re-engages lapsed clients and leads','Full dashboard — call logs, reminders, sales queue','Cancel anytime. No contracts. No commitment.'].map((f,i) => (
+                <div key={i} style={{ fontFamily:S,fontSize:13,color:'rgba(0,0,0,.6)',padding:'8px 0',borderBottom:'0.5px solid rgba(0,0,0,.05)',display:'flex',gap:12,alignItems:'center',textAlign:'left' }}>
+                  <span style={{ color:'#1a1a1a',fontWeight:500,flexShrink:0 }}>—</span>{f}
+                </div>
+              ))}
+            </div>
+
+            <button onClick={() => setView('login')} style={{ width:'100%',fontFamily:S,fontSize:14,fontWeight:500,letterSpacing:'.08em',background:'#1a1a1a',color:'#fff',border:'none',padding:'16px 0',borderRadius:100,cursor:'pointer' }}>
+              Join the Beta
+            </button>
+          </div>
+
+          <p style={{ fontFamily:S,fontSize:13,color:'rgba(0,0,0,.45)',lineHeight:1.8 }}>
+            When we open publicly, the price goes up.<br />
+            The studios who joined first will always pay less.
+          </p>
+          <p className="spots" style={{ fontFamily:S,fontSize:12,color:'#f03e00',marginTop:12,fontWeight:500 }}>
+            {spotsLeft} beta spots remaining.
+          </p>
+        </div>
+      </section>
+
+      {/* ═══ FAQ ═══ */}
+      <section style={{ position:'relative',zIndex:10,padding:'72px 52px',borderBottom:'0.5px solid rgba(0,0,0,.07)',background:'rgba(255,255,255,.3)',backdropFilter:'blur(8px)' }}>
+        <div style={{ maxWidth:640,margin:'0 auto' }}>
+          <h2 style={{ fontFamily:D,fontSize:44,fontWeight:400,color:'#1a1a1a',textAlign:'center',marginBottom:44 }}>Questions</h2>
           {FAQS.map((f,i) => (
             <div key={i} style={{ borderBottom:'0.5px solid rgba(0,0,0,.08)' }}>
-              <button onClick={() => setOpenFaq(openFaq===i?null:i)} style={{ width:'100%', background:'none', border:'none', color:'rgba(0,0,0,.7)', padding:'18px 0', textAlign:'left', cursor:'pointer', display:'flex', justifyContent:'space-between', gap:16, fontFamily:D, fontSize:18, lineHeight:1.3 }}>
+              <button onClick={() => setOpenFaq(openFaq===i?null:i)} style={{ width:'100%',background:'none',border:'none',color:'rgba(0,0,0,.7)',padding:'20px 0',textAlign:'left',cursor:'pointer',display:'flex',justifyContent:'space-between',gap:16,fontFamily:D,fontSize:19,lineHeight:1.3 }}>
                 {f.q}
-                <span style={{ color:'rgba(0,0,0,.3)', fontSize:20, flexShrink:0, display:'inline-block', transition:'transform .2s', transform: openFaq===i ? 'rotate(45deg)' : 'none' }}>+</span>
+                <span style={{ color:'rgba(0,0,0,.3)',fontSize:22,flexShrink:0,display:'inline-block',transition:'transform .2s',transform:openFaq===i?'rotate(45deg)':'none' }}>+</span>
               </button>
-              {openFaq===i && <div style={{ fontFamily:S, fontSize:13, color:'rgba(0,0,0,.45)', lineHeight:1.85, paddingBottom:18 }}>{f.a}</div>}
+              {openFaq===i && <div style={{ fontFamily:S,fontSize:13,color:'rgba(0,0,0,.45)',lineHeight:1.85,paddingBottom:20 }}>{f.a}</div>}
             </div>
           ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ position:'relative', zIndex:10, padding:'90px 52px', textAlign:'center', background:'rgba(255,255,255,.25)', backdropFilter:'blur(8px)' }}>
-        <div style={{ fontFamily:D, fontSize:200, color:'rgba(0,0,0,.02)', lineHeight:1, position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', pointerEvents:'none', letterSpacing:'-.05em' }}>A</div>
-        <h2 style={{ fontFamily:D, fontSize:56, fontWeight:400, lineHeight:1.05, letterSpacing:'-.02em', marginBottom:16, position:'relative' }}>
-          You do the lashes.<br />
-          <em style={{ fontStyle:'italic', WebkitTextStroke:'1px #1a1a1a', color:'transparent' }}>AURA does the rest.</em>
-        </h2>
-        <p style={{ fontFamily:S, fontSize:14, color:'rgba(0,0,0,.42)', marginBottom:32, maxWidth:380, margin:'0 auto 32px', lineHeight:1.8, position:'relative' }}>
-          Join beauty professionals who stopped losing money to missed bookings across every channel.
-        </p>
-        <button onClick={() => setView('login')} style={{ fontFamily:S, fontSize:14, fontWeight:500, letterSpacing:'.07em', background:'#1a1a1a', color:'#fff', border:'none', padding:'16px 40px', borderRadius:100, cursor:'pointer', position:'relative' }}>
-          Start Your Free Trial Today
-        </button>
-        <p style={{ fontFamily:S, fontSize:10, color:'rgba(0,0,0,.28)', marginTop:14, letterSpacing:'.06em', position:'relative' }}>14 days free · No card required · Cancel anytime</p>
+      {/* ═══ CTA ═══ */}
+      <section style={{ position:'relative',zIndex:10,padding:'100px 52px',textAlign:'center',background:'rgba(255,255,255,.25)',backdropFilter:'blur(8px)' }}>
+        <div style={{ fontFamily:D,fontSize:180,color:'rgba(0,0,0,.025)',lineHeight:1,position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',pointerEvents:'none',letterSpacing:'-.05em' }}>A</div>
+        <div style={{ position:'relative' }}>
+          <h2 style={{ fontFamily:D,fontSize:60,fontWeight:400,lineHeight:1.06,letterSpacing:'-.02em',marginBottom:16 }}>
+            Stop doing their job.<br />
+            <em style={{ fontStyle:'italic',WebkitTextStroke:'1px #1a1a1a',color:'transparent' }}>Let AURA do it for you.</em>
+          </h2>
+          <p style={{ fontFamily:S,fontSize:15,color:'rgba(0,0,0,.42)',marginBottom:36,maxWidth:420,margin:'0 auto 36px',lineHeight:1.8 }}>
+            Join the beta. Limited to 20 studios. Price goes up at launch.
+          </p>
+          <button onClick={() => setView('login')} style={{ fontFamily:S,fontSize:14,fontWeight:500,letterSpacing:'.08em',background:'#1a1a1a',color:'#fff',border:'none',padding:'17px 44px',borderRadius:100,cursor:'pointer',marginBottom:14 }}>
+            Join the Beta — £149/month
+          </button>
+          <p style={{ fontFamily:S,fontSize:11,color:'rgba(0,0,0,.3)',letterSpacing:'.06em' }}>No card required to start · Cancel anytime</p>
+          <p className="spots" style={{ fontFamily:S,fontSize:12,color:'#f03e00',marginTop:10,fontWeight:500 }}>{spotsLeft} spots remaining</p>
+        </div>
       </section>
 
-      <footer style={{ position:'relative', zIndex:10, borderTop:'0.5px solid rgba(0,0,0,.07)', padding:'24px 52px', display:'flex', alignItems:'center', justifyContent:'space-between', background:'rgba(255,255,255,.6)', backdropFilter:'blur(8px)', flexWrap:'wrap', gap:12 }}>
-        <div style={{ fontFamily:D, fontSize:16, letterSpacing:'.1em', color:'#1a1a1a' }}>AURA <span style={{ fontFamily:S, fontSize:8, letterSpacing:'.18em', color:'rgba(0,0,0,.3)', verticalAlign:'middle', marginLeft:6 }}>BY PSC AGENT</span></div>
-        <div style={{ fontFamily:S, fontSize:10, color:'rgba(0,0,0,.28)' }}>© 2025 R and G Enterprise Solutions. All rights reserved.</div>
-        <div style={{ fontFamily:S, fontSize:10, color:'rgba(0,0,0,.28)', display:'flex', gap:20 }}>
+      <footer style={{ position:'relative',zIndex:10,borderTop:'0.5px solid rgba(0,0,0,.07)',padding:'24px 52px',display:'flex',alignItems:'center',justifyContent:'space-between',background:'rgba(255,255,255,.6)',backdropFilter:'blur(8px)',flexWrap:'wrap',gap:12 }}>
+        <div style={{ fontFamily:D,fontSize:16,letterSpacing:'.1em',color:'#1a1a1a' }}>AURA <span style={{ fontFamily:S,fontSize:8,letterSpacing:'.18em',color:'rgba(0,0,0,.3)',verticalAlign:'middle',marginLeft:6 }}>BY PSC AGENT</span></div>
+        <div style={{ fontFamily:S,fontSize:10,color:'rgba(0,0,0,.28)' }}>© 2025 R and G Enterprise Solutions. All rights reserved.</div>
+        <div style={{ fontFamily:S,fontSize:10,color:'rgba(0,0,0,.28)',display:'flex',gap:20 }}>
           {['Privacy','Terms','Contact'].map(l => <span key={l} style={{ cursor:'pointer' }}>{l}</span>)}
         </div>
       </footer>
