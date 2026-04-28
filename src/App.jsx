@@ -87,181 +87,260 @@ const FAQS = [
   { q:'How long does setup take?',                a:'Most clients are fully live within 24 hours. Our setup wizard walks you through every step.' },
 ]
 
+
+const PRICING = [
+  { tier:'Solo',           price:'£39',  period:'/month', desc:'For the one-woman studio juggling everything.',     features:['Up to 150 inbound calls/month','24h outbound reminders','10 FAQ answers','Booking integration','Call summary emails','Email support'],                                                     cta:'Start Free Trial', highlight:false },
+  { tier:'Studio',         price:'£69',  period:'/month', desc:'For growing studios ready to run like a business.', features:['Unlimited inbound calls','24h + 2h reminders','Unlimited FAQ answers','Custom agent name & voice','Call recordings & transcripts','Analytics dashboard','Priority support'],               cta:'Start Free Trial', highlight:true, badge:'Most Popular' },
+  { tier:'Multi-Location', price:'£120', period:'/month', desc:'Runs multiple chairs or locations under one roof.',  features:['Up to 3 locations','Multiple agents','Team access','All Studio features','Booking analytics','Dedicated onboarding'],                                                                     cta:'Book a Demo',    highlight:false },
+]
+const FAQS = [
+  { q:'Can I keep my existing phone number?',     a:'Yes. We set up call forwarding so your number stays the same. AURA answers on your behalf.' },
+  { q:'What booking systems does it connect to?', a:'Acuity, Fresha, Timely, Google Calendar, and Calendly. More integrations added monthly.' },
+  { q:'Can clients still reach a human?',         a:'Absolutely. AURA hands off to you via text alert if a client specifically asks or cannot resolve something.' },
+  { q:'How long does setup take?',                a:'Most clients are fully live within 24 hours. Our setup wizard walks you through every step.' },
+]
+
 function Landing({ setView }) {
   const [openFaq, setOpenFaq] = useState(null)
   return (
-    <div style={{ fontFamily:DISPLAY, background:'#000', color:'#fff', overflowX:'hidden' }}>
+    <div style={{ fontFamily:DISPLAY, background:'#04030f', color:'#fff', overflowX:'hidden' }}>
       <style>{`
-        @keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-22px) scale(1.05)}}
-        @keyframes hueShift{0%{filter:hue-rotate(0deg) brightness(1.1)}100%{filter:hue-rotate(360deg) brightness(1.1)}}
-        @keyframes ringOut {0%{transform:scale(1);opacity:.5}100%{transform:scale(2.2);opacity:0}}
-        @keyframes ringOut2{0%{transform:scale(1);opacity:.3}100%{transform:scale(2.8);opacity:0}}
-        @keyframes fadeUp  {from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-        @keyframes slideAcc{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
-        .fu{animation:fadeUp .7s ease both}.d1{animation-delay:.1s}.d2{animation-delay:.22s}.d3{animation-delay:.36s}.d4{animation-delay:.52s}
-        .orb{animation:orbFloat 3.4s ease-in-out infinite,hueShift 7s linear infinite;border-radius:50%;background:conic-gradient(from 0deg,hsl(0,100%,62%),hsl(45,100%,60%),hsl(90,100%,58%),hsl(150,100%,55%),hsl(200,100%,60%),hsl(250,100%,65%),hsl(300,100%,60%),hsl(330,100%,62%),hsl(360,100%,62%))}
-        .r1{animation:ringOut 2.8s ease-out infinite}
-        .r2{animation:ringOut2 2.8s ease-out infinite;animation-delay:.85s}
-        .r3{animation:ringOut 2.8s ease-out infinite;animation-delay:1.7s}
-        .wbtn{transition:background .18s;cursor:pointer}.wbtn:hover{background:#ddd!important}
-        .gbtn{cursor:pointer}.gbtn:hover{background:rgba(255,255,255,.06)!important}
-        .hlift{transition:transform .2s}.hlift:hover{transform:translateY(-3px)}
-        .fq{transition:color .2s}.fq:hover{color:#aaa!important}
+        @keyframes drift1 { 0%,100%{transform:translate(0,0) scale(1) rotate(0deg)} 25%{transform:translate(80px,-60px) scale(1.12) rotate(8deg)} 50%{transform:translate(-40px,80px) scale(0.95) rotate(-5deg)} 75%{transform:translate(60px,30px) scale(1.08) rotate(3deg)} }
+        @keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1) rotate(0deg)} 25%{transform:translate(-70px,50px) scale(1.1) rotate(-6deg)} 50%{transform:translate(90px,-50px) scale(1.05) rotate(10deg)} 75%{transform:translate(-30px,-70px) scale(0.92) rotate(-4deg)} }
+        @keyframes drift3 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(50px,70px) scale(1.15)} 66%{transform:translate(-80px,-30px) scale(0.9)} }
+        @keyframes drift4 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-60px,60px) scale(1.2)} }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes slideAcc { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes pulseGlow { 0%,100%{opacity:.7} 50%{opacity:1} }
+        @keyframes floatOrb { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-18px) scale(1.04)} }
+        @keyframes hueRotate { 0%{filter:hue-rotate(0deg) brightness(1.1) saturate(1.3)} 100%{filter:hue-rotate(360deg) brightness(1.1) saturate(1.3)} }
+        .fu{animation:fadeUp .8s ease both}
+        .d1{animation-delay:.1s}.d2{animation-delay:.25s}.d3{animation-delay:.4s}.d4{animation-delay:.58s}
+        .wbtn{transition:all .2s;cursor:pointer}.wbtn:hover{background:rgba(255,255,255,.9)!important;transform:translateY(-1px)}
+        .gbtn{cursor:pointer;transition:all .2s}.gbtn:hover{background:rgba(255,255,255,.08)!important;border-color:rgba(255,255,255,.3)!important}
+        .hlift{transition:transform .25s,box-shadow .25s}.hlift:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(80,40,255,.2)}
+        .fq{transition:color .2s;cursor:pointer}.fq:hover{color:#a0a0ff!important}
+        .stat-card:hover{border-color:rgba(100,80,255,.3)!important}
+        .stat-card{transition:border-color .3s}
+        .nav-btn:hover{color:#c0b8ff!important}
+        .nav-btn{transition:color .2s}
       `}</style>
 
       {/* NAV */}
-      <nav style={{ position:'sticky',top:0,zIndex:100,background:'rgba(0,0,0,.92)',backdropFilter:'blur(14px)',borderBottom:'1px solid #1c1c1c',padding:'0 52px',height:58,display:'flex',alignItems:'center' }}>
-        <div style={{ fontFamily:DISPLAY,fontSize:22,letterSpacing:'.12em',color:'#fff',flex:1 }}>
-          AURA <span style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.18em',color:'#555',verticalAlign:'middle',marginLeft:10 }}>BY PSC AGENT</span>
+      <nav style={{ position:'fixed',top:0,left:0,right:0,zIndex:100,background:'rgba(4,3,15,.6)',backdropFilter:'blur(20px)',borderBottom:'1px solid rgba(255,255,255,.06)',padding:'0 52px',height:58,display:'flex',alignItems:'center' }}>
+        <div style={{ fontFamily:DISPLAY,fontSize:22,letterSpacing:'.12em',color:'#fff',flex:1,background:'linear-gradient(135deg,#fff 0%,#c0b0ff 50%,#80d4ff 100%)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>
+          AURA <span style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.18em',WebkitTextFillColor:'rgba(255,255,255,.35)',verticalAlign:'middle',marginLeft:10 }}>BY PSC AGENT</span>
         </div>
-        <div style={{ display:'flex',gap:8,fontFamily:SANS }}>
-          <button onClick={() => setView('login')} className="gbtn" style={{ background:'transparent',border:'none',color:'#666',fontSize:13,padding:'8px 16px',borderRadius:6 }}>Client Login</button>
-          <button onClick={() => setView('login')} className="wbtn" style={{ background:'#fff',color:'#000',border:'none',padding:'10px 22px',borderRadius:6,fontSize:13,fontWeight:600,letterSpacing:'.04em' }}>Start Free Trial</button>
+        <div style={{ display:'flex',gap:8,fontFamily:SANS,alignItems:'center' }}>
+          <button onClick={() => setView('login')} className="nav-btn" style={{ background:'transparent',border:'none',color:'rgba(255,255,255,.5)',fontSize:13,padding:'8px 18px',borderRadius:8,cursor:'pointer' }}>Client Login</button>
+          <button onClick={() => setView('login')} className="wbtn" style={{ background:'#fff',color:'#0a0820',border:'none',padding:'10px 22px',borderRadius:8,fontSize:13,fontWeight:700,letterSpacing:'.04em' }}>Start Free Trial</button>
         </div>
       </nav>
 
-      {/* HERO */}
-      <section style={{ minHeight:'96vh',display:'flex',alignItems:'center',padding:'60px 52px',position:'relative',overflow:'hidden' }}>
-        <div style={{ position:'absolute',inset:0,background:'radial-gradient(ellipse 45% 70% at 72% 50%,rgba(255,255,255,.025) 0%,transparent 70%)',pointerEvents:'none' }} />
-        <div style={{ maxWidth:1200,margin:'0 auto',width:'100%',display:'grid',gridTemplateColumns:'1fr 1fr',gap:80,alignItems:'center' }}>
+      {/* ═══ HERO ═══ */}
+      <section style={{ minHeight:'100vh',display:'flex',alignItems:'center',padding:'100px 52px 80px',position:'relative',overflow:'hidden' }}>
+
+        {/* Aurora background layers */}
+        <div style={{ position:'absolute',inset:0,background:'#04030f',zIndex:0 }} />
+
+        {/* Blob 1 — deep blue */}
+        <div style={{ position:'absolute',width:900,height:900,borderRadius:'50%',background:'radial-gradient(circle at 40% 40%, #2a0aff 0%, #0a0aff 30%, transparent 70%)',filter:'blur(90px)',opacity:.55,top:'-20%',left:'-15%',animation:'drift1 18s ease-in-out infinite',zIndex:1 }} />
+        {/* Blob 2 — cyan teal */}
+        <div style={{ position:'absolute',width:700,height:700,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%, #00e5ff 0%, #0077ff 40%, transparent 70%)',filter:'blur(80px)',opacity:.45,top:'10%',right:'-10%',animation:'drift2 22s ease-in-out infinite',zIndex:1 }} />
+        {/* Blob 3 — magenta purple */}
+        <div style={{ position:'absolute',width:600,height:600,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%, #cc00ff 0%, #7700cc 40%, transparent 70%)',filter:'blur(100px)',opacity:.4,bottom:'-10%',left:'20%',animation:'drift3 26s ease-in-out infinite',zIndex:1 }} />
+        {/* Blob 4 — electric indigo */}
+        <div style={{ position:'absolute',width:500,height:500,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%, #4400ff 0%, #2200aa 50%, transparent 70%)',filter:'blur(70px)',opacity:.5,bottom:'5%',right:'15%',animation:'drift4 20s ease-in-out infinite',zIndex:1 }} />
+        {/* Blob 5 — hot pink accent */}
+        <div style={{ position:'absolute',width:400,height:400,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%, #ff00aa 0%, #aa0066 50%, transparent 70%)',filter:'blur(90px)',opacity:.3,top:'40%',left:'40%',animation:'drift2 30s ease-in-out infinite reverse',zIndex:1 }} />
+        {/* Blob 6 — deep teal */}
+        <div style={{ position:'absolute',width:550,height:550,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%, #00ffcc 0%, #007755 50%, transparent 70%)',filter:'blur(100px)',opacity:.25,top:'5%',left:'45%',animation:'drift1 24s ease-in-out infinite reverse',zIndex:1 }} />
+
+        {/* Grain overlay */}
+        <div style={{ position:'absolute',inset:0,zIndex:2,opacity:.04,backgroundImage:'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")',backgroundRepeat:'repeat',backgroundSize:'128px' }} />
+
+        {/* Vignette */}
+        <div style={{ position:'absolute',inset:0,zIndex:2,background:'radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(4,3,15,.8) 100%)',pointerEvents:'none' }} />
+
+        {/* Content */}
+        <div style={{ maxWidth:1200,margin:'0 auto',width:'100%',position:'relative',zIndex:10,display:'grid',gridTemplateColumns:'1fr 1fr',gap:80,alignItems:'center' }}>
+
+          {/* Left text */}
           <div>
-            <div className="fu" style={{ display:'inline-flex',alignItems:'center',gap:8,border:'1px solid #252525',borderRadius:100,padding:'6px 16px',marginBottom:30,fontFamily:SANS }}>
-              <span style={{ width:6,height:6,borderRadius:'50%',background:'#fff',opacity:.8,display:'inline-block' }} />
-              <span style={{ fontSize:10,color:'#666',letterSpacing:'.2em',textTransform:'uppercase' }}>AI Receptionist for Beauty Businesses</span>
+            <div className="fu" style={{ display:'inline-flex',alignItems:'center',gap:8,background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.12)',borderRadius:100,padding:'7px 18px',marginBottom:32,fontFamily:SANS,backdropFilter:'blur(10px)' }}>
+              <span style={{ width:6,height:6,borderRadius:'50%',background:'linear-gradient(135deg,#00e5ff,#cc00ff)',display:'inline-block',animation:'pulseGlow 2s ease-in-out infinite' }} />
+              <span style={{ fontSize:10,color:'rgba(255,255,255,.7)',letterSpacing:'.2em',textTransform:'uppercase' }}>AI Receptionist for Beauty Businesses</span>
             </div>
-            <h1 className="fu d1" style={{ fontSize:64,lineHeight:1.06,fontWeight:400,marginBottom:24,letterSpacing:'-.01em' }}>
-              Your clients call.<br /><span style={{ color:'#888',fontStyle:'italic' }}>AURA answers.</span>
+
+            <h1 className="fu d1" style={{ fontSize:64,lineHeight:1.06,fontWeight:400,marginBottom:24,letterSpacing:'-.015em' }}>
+              Your clients call.<br />
+              <span style={{ background:'linear-gradient(135deg, #80d4ff 0%, #c084ff 40%, #ff80d4 80%)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', fontStyle:'italic' }}>
+                AURA answers.
+              </span>
             </h1>
-            <p className="fu d2" style={{ fontFamily:SANS,fontSize:16,color:'#777',lineHeight:1.82,marginBottom:40,maxWidth:410 }}>
+
+            <p className="fu d2" style={{ fontFamily:SANS,fontSize:16,color:'rgba(255,255,255,.55)',lineHeight:1.85,marginBottom:40,maxWidth:420 }}>
               The AI receptionist built for solo lash techs and beauty studios. Books appointments, handles FAQs, and calls clients before they no-show — 24/7.
             </p>
+
             <div className="fu d3" style={{ display:'flex',gap:12 }}>
-              <button onClick={() => setView('login')} className="wbtn" style={{ background:'#fff',color:'#000',border:'none',padding:'14px 30px',borderRadius:7,fontSize:15,fontFamily:SANS,fontWeight:600,letterSpacing:'.04em' }}>Start 14-Day Free Trial</button>
-              <button onClick={() => setView('login')} className="gbtn" style={{ background:'transparent',color:'#666',border:'1px solid #252525',padding:'14px 22px',borderRadius:7,fontSize:15,fontFamily:SANS }}>Client Login →</button>
+              <button onClick={() => setView('login')} className="wbtn" style={{ background:'#fff',color:'#0a0820',border:'none',padding:'15px 32px',borderRadius:9,fontSize:15,fontFamily:SANS,fontWeight:700,letterSpacing:'.04em' }}>
+                Start 14-Day Free Trial
+              </button>
+              <button onClick={() => setView('login')} className="gbtn" style={{ background:'rgba(255,255,255,.05)',color:'rgba(255,255,255,.7)',border:'1px solid rgba(255,255,255,.15)',padding:'15px 24px',borderRadius:9,fontSize:15,fontFamily:SANS,backdropFilter:'blur(10px)' }}>
+                Client Login →
+              </button>
             </div>
-            <p className="fu d4" style={{ fontFamily:SANS,fontSize:11,color:'#444',marginTop:14,letterSpacing:'.08em' }}>No card required · Cancel any time · Live in 24 hours</p>
+
+            <p className="fu d4" style={{ fontFamily:SANS,fontSize:11,color:'rgba(255,255,255,.25)',marginTop:16,letterSpacing:'.08em' }}>
+              No card required · Cancel any time · Live in 24 hours
+            </p>
           </div>
 
-          {/* ORB */}
-          <div className="fu d2" style={{ display:'flex',justifyContent:'center',alignItems:'center',position:'relative',height:460 }}>
-            <div className="r1" style={{ position:'absolute',width:210,height:210,borderRadius:'50%',background:'conic-gradient(from 0deg,hsl(0,100%,62%),hsl(90,100%,58%),hsl(180,100%,60%),hsl(270,100%,62%),hsl(360,100%,62%))',opacity:.55,filter:'blur(2px)' }} />
-            <div className="r2" style={{ position:'absolute',width:210,height:210,borderRadius:'50%',background:'conic-gradient(from 60deg,hsl(60,100%,60%),hsl(160,100%,56%),hsl(240,100%,62%),hsl(310,100%,60%),hsl(360,100%,62%))',opacity:.35,filter:'blur(4px)' }} />
-            <div className="r3" style={{ position:'absolute',width:210,height:210,borderRadius:'50%',background:'conic-gradient(from 120deg,hsl(120,100%,58%),hsl(200,100%,60%),hsl(280,100%,64%),hsl(0,100%,62%),hsl(60,100%,60%))',opacity:.22,filter:'blur(5px)' }} />
-            <div style={{ position:'absolute',width:300,height:300,borderRadius:'50%',background:'conic-gradient(from 0deg,hsl(0,100%,60%),hsl(60,100%,60%),hsl(180,100%,55%),hsl(270,100%,65%),hsl(360,100%,60%))',filter:'blur(55px)',opacity:.18,animation:'orbFloat 3.4s ease-in-out infinite,hueShift 7s linear infinite' }} />
-            <div className="orb" style={{ width:200,height:200,position:'relative',zIndex:2,boxShadow:'0 0 0 1px rgba(255,255,255,.07),0 20px 60px rgba(0,0,0,.6)' }} />
-            <div style={{ position:'absolute',bottom:36,fontFamily:SANS,fontSize:10,color:'#3a3a3a',letterSpacing:'.18em',textTransform:'uppercase' }}>Always on · Always listening</div>
+          {/* Right — aurora orb */}
+          <div className="fu d2" style={{ display:'flex',justifyContent:'center',alignItems:'center',position:'relative',height:500 }}>
+            {/* Outer glow rings */}
+            <div style={{ position:'absolute',width:380,height:380,borderRadius:'50%',background:'conic-gradient(from 0deg,#2a0aff,#00e5ff,#cc00ff,#ff00aa,#00ffcc,#4400ff,#2a0aff)',filter:'blur(60px)',opacity:.25,animation:'floatOrb 4s ease-in-out infinite, hueRotate 10s linear infinite' }} />
+            <div style={{ position:'absolute',width:300,height:300,borderRadius:'50%',background:'conic-gradient(from 90deg,#00e5ff,#cc00ff,#ff00aa,#2a0aff,#00ffcc,#00e5ff)',filter:'blur(30px)',opacity:.4,animation:'floatOrb 4s ease-in-out infinite, hueRotate 8s linear infinite reverse' }} />
+
+            {/* Main orb */}
+            <div style={{ width:220,height:220,borderRadius:'50%',position:'relative',zIndex:5,animation:'floatOrb 4s ease-in-out infinite, hueRotate 6s linear infinite',background:'conic-gradient(from 0deg,hsl(240,100%,60%),hsl(180,100%,60%),hsl(300,100%,60%),hsl(200,100%,65%),hsl(270,100%,65%),hsl(240,100%,60%))',boxShadow:'0 0 80px rgba(100,50,255,.6), 0 0 160px rgba(0,200,255,.3)' }} />
+
+            {/* Floating stat pills */}
+            <div style={{ position:'absolute',top:'12%',right:'0%',background:'rgba(255,255,255,.07)',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,.12)',borderRadius:12,padding:'12px 16px',fontFamily:SANS,animation:'floatOrb 5s ease-in-out infinite',animationDelay:'1s' }}>
+              <div style={{ fontSize:18,fontWeight:700,color:'#fff',marginBottom:2 }}>8</div>
+              <div style={{ fontSize:10,color:'rgba(255,255,255,.45)',letterSpacing:'.08em' }}>Calls today</div>
+            </div>
+            <div style={{ position:'absolute',bottom:'18%',left:'-5%',background:'rgba(255,255,255,.07)',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,.12)',borderRadius:12,padding:'12px 16px',fontFamily:SANS,animation:'floatOrb 6s ease-in-out infinite',animationDelay:'.5s' }}>
+              <div style={{ fontSize:18,fontWeight:700,color:'#fff',marginBottom:2 }}>5</div>
+              <div style={{ fontSize:10,color:'rgba(255,255,255,.45)',letterSpacing:'.08em' }}>Bookings made</div>
+            </div>
+            <div style={{ position:'absolute',bottom:'35%',right:'-8%',background:'linear-gradient(135deg,rgba(0,229,255,.15),rgba(204,0,255,.15))',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,.15)',borderRadius:12,padding:'12px 16px',fontFamily:SANS,animation:'floatOrb 4.5s ease-in-out infinite',animationDelay:'2s' }}>
+              <div style={{ fontSize:12,fontWeight:600,color:'#00e5ff',marginBottom:2 }}>✓ Booking confirmed</div>
+              <div style={{ fontSize:10,color:'rgba(255,255,255,.45)' }}>Mega Volume — 14 Nov 10:00</div>
+            </div>
+
+            <div style={{ position:'absolute',bottom:30,fontFamily:SANS,fontSize:10,color:'rgba(255,255,255,.2)',letterSpacing:'.2em',textTransform:'uppercase' }}>Always on · Always listening</div>
           </div>
         </div>
       </section>
 
-      <div style={{ height:1,background:'linear-gradient(90deg,transparent,#282828,transparent)' }} />
-
-      {/* STATS */}
-      <section style={{ background:'#070707',padding:'60px 52px' }}>
+      {/* ═══ STATS ═══ */}
+      <section style={{ background:'rgba(255,255,255,.02)',borderTop:'1px solid rgba(255,255,255,.06)',borderBottom:'1px solid rgba(255,255,255,.06)',padding:'60px 52px' }}>
         <div style={{ maxWidth:900,margin:'0 auto',display:'grid',gridTemplateColumns:'1fr 1fr 1fr' }}>
-          {[{val:'£320',lbl:'Average monthly revenue lost to no-shows per solo tech'},{val:'67%',lbl:'Of missed calls from new clients who never call back'},{val:'94%',lbl:'Client satisfaction rate after switching to AURA'}].map((s,i)=>(
-            <div key={i} style={{ padding:'28px 40px',borderRight:i<2?'1px solid #181818':'none',textAlign:'center' }}>
-              <div style={{ fontFamily:DISPLAY,fontSize:52,fontWeight:400,color:'#fff',marginBottom:10 }}>{s.val}</div>
-              <div style={{ fontFamily:SANS,fontSize:12,color:'#555',lineHeight:1.65,maxWidth:180,margin:'0 auto' }}>{s.lbl}</div>
+          {[
+            {val:'£320',lbl:'Average monthly revenue lost to no-shows per solo tech'},
+            {val:'67%', lbl:'Of missed calls from new clients who never call back'},
+            {val:'94%', lbl:'Client satisfaction rate after switching to AURA'},
+          ].map((s,i)=>(
+            <div key={i} className="stat-card" style={{ padding:'28px 40px',borderRight:i<2?'1px solid rgba(255,255,255,.06)':'none',textAlign:'center' }}>
+              <div style={{ fontFamily:DISPLAY,fontSize:52,fontWeight:400,marginBottom:10,background:'linear-gradient(135deg,#80d4ff,#c084ff)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>{s.val}</div>
+              <div style={{ fontFamily:SANS,fontSize:12,color:'rgba(255,255,255,.4)',lineHeight:1.65,maxWidth:180,margin:'0 auto' }}>{s.lbl}</div>
             </div>
           ))}
         </div>
       </section>
 
-      <div style={{ height:1,background:'linear-gradient(90deg,transparent,#222,transparent)' }} />
-
-      {/* HOW */}
-      <section style={{ padding:'100px 52px' }}>
-        <div style={{ maxWidth:1100,margin:'0 auto' }}>
-          <div style={{ textAlign:'center',marginBottom:64 }}>
-            <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.24em',color:'#555',textTransform:'uppercase',marginBottom:14 }}>How It Works</div>
+      {/* ═══ HOW IT WORKS ═══ */}
+      <section style={{ padding:'100px 52px',position:'relative',overflow:'hidden' }}>
+        {/* subtle aurora accent */}
+        <div style={{ position:'absolute',width:600,height:600,borderRadius:'50%',background:'radial-gradient(circle,#4400ff 0%,transparent 70%)',filter:'blur(120px)',opacity:.12,top:'-20%',right:'-10%',pointerEvents:'none' }} />
+        <div style={{ maxWidth:1100,margin:'0 auto',position:'relative' }}>
+          <div style={{ textAlign:'center',marginBottom:72 }}>
+            <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'rgba(140,110,255,.8)',textTransform:'uppercase',marginBottom:14 }}>How It Works</div>
             <h2 style={{ fontFamily:DISPLAY,fontSize:44,fontWeight:400,color:'#fff',lineHeight:1.2 }}>Up and running before your next client walks in</h2>
           </div>
-          <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:52 }}>
+          <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:40 }}>
             {[
-              {n:'01',t:'Connect in minutes',b:'Link your booking system — Acuity, Fresha, Timely, or Google Calendar. AURA reads your live availability.'},
-              {n:'02',t:'AURA takes the calls',b:'Clients call your existing number. AURA answers, books them in, handles FAQs and reschedules — 24/7.'},
-              {n:'03',t:'Zero no-shows',b:"AURA calls every client before their appointment. If they can't make it, she reschedules and fills the slot."},
+              {n:'01',t:'Connect in minutes',b:'Link your booking system — Acuity, Fresha, Timely, or Google Calendar. AURA reads your live availability.',color:'#80d4ff'},
+              {n:'02',t:'AURA takes the calls',b:'Clients call your existing number. AURA answers, books them in, handles FAQs and reschedules — 24/7.',color:'#c084ff'},
+              {n:'03',t:'Zero no-shows',b:"AURA calls every client before their appointment. If they can't make it, she reschedules and fills the slot.",color:'#ff84d4'},
             ].map((h,i)=>(
-              <div key={i} style={{ position:'relative' }}>
-                <div style={{ fontFamily:DISPLAY,fontSize:80,fontWeight:400,color:'#181818',marginBottom:14,lineHeight:1 }}>{h.n}</div>
-                <h3 style={{ fontFamily:DISPLAY,fontSize:24,fontWeight:400,color:'#fff',marginBottom:12 }}>{h.t}</h3>
-                <p style={{ fontFamily:SANS,fontSize:14,color:'#666',lineHeight:1.88 }}>{h.b}</p>
-                {i<2 && <div style={{ position:'absolute',top:38,right:-30,color:'#252525',fontSize:22,fontFamily:SANS }}>→</div>}
+              <div key={i} style={{ background:'rgba(255,255,255,.03)',border:'1px solid rgba(255,255,255,.07)',borderRadius:16,padding:'32px 28px',position:'relative',overflow:'hidden' }}>
+                <div style={{ position:'absolute',top:0,left:0,right:0,height:2,background:`linear-gradient(90deg,transparent,${h.color},transparent)` }} />
+                <div style={{ fontFamily:DISPLAY,fontSize:64,fontWeight:400,color:'rgba(255,255,255,.06)',marginBottom:16,lineHeight:1 }}>{h.n}</div>
+                <h3 style={{ fontFamily:DISPLAY,fontSize:22,fontWeight:400,color:'#fff',marginBottom:12 }}>{h.t}</h3>
+                <p style={{ fontFamily:SANS,fontSize:14,color:'rgba(255,255,255,.45)',lineHeight:1.88 }}>{h.b}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <div style={{ height:1,background:'linear-gradient(90deg,transparent,#222,transparent)' }} />
-
-      {/* PRICING */}
-      <section style={{ background:'#070707',padding:'100px 52px' }}>
+      {/* ═══ PRICING ═══ */}
+      <section style={{ background:'rgba(255,255,255,.015)',borderTop:'1px solid rgba(255,255,255,.06)',padding:'100px 52px',position:'relative',overflow:'hidden' }}>
+        <div style={{ position:'absolute',width:700,height:700,borderRadius:'50%',background:'radial-gradient(circle,#0044ff 0%,transparent 70%)',filter:'blur(130px)',opacity:.1,bottom:'-30%',left:'-10%',pointerEvents:'none' }} />
         <div style={{ textAlign:'center',marginBottom:60 }}>
-          <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.24em',color:'#555',textTransform:'uppercase',marginBottom:14 }}>Pricing</div>
+          <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'rgba(140,110,255,.8)',textTransform:'uppercase',marginBottom:14 }}>Pricing</div>
           <h2 style={{ fontFamily:DISPLAY,fontSize:44,fontWeight:400,color:'#fff' }}>Straightforward. No surprises.</h2>
-          <p style={{ fontFamily:SANS,color:'#555',marginTop:12,fontSize:14 }}>14-day free trial on all plans. Cancel anytime.</p>
+          <p style={{ fontFamily:SANS,color:'rgba(255,255,255,.35)',marginTop:12,fontSize:14 }}>14-day free trial on all plans. Cancel anytime.</p>
         </div>
-        <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:1,maxWidth:960,margin:'0 auto',border:'1px solid #1c1c1c',borderRadius:16,overflow:'hidden' }}>
-          {PRICING.map((p,idx)=>(
-            <div key={p.tier} className="hlift" style={{ background:p.highlight?'#111':'#090909',padding:'38px 32px',borderRight:idx<2?'1px solid #1c1c1c':'none',position:'relative' }}>
-              {p.badge && <div style={{ position:'absolute',top:20,right:20,background:'#fff',color:'#000',fontFamily:SANS,fontSize:10,fontWeight:700,padding:'3px 10px',borderRadius:100,letterSpacing:'.08em' }}>{p.badge}</div>}
-              <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.2em',color:'#555',textTransform:'uppercase',marginBottom:10 }}>{p.tier}</div>
+        <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:16,maxWidth:960,margin:'0 auto' }}>
+          {PRICING.map((p)=>(
+            <div key={p.tier} className="hlift" style={{ background: p.highlight ? 'linear-gradient(135deg,rgba(80,40,200,.25),rgba(0,150,255,.15))' : 'rgba(255,255,255,.03)', border:`1px solid ${p.highlight?'rgba(140,100,255,.5)':'rgba(255,255,255,.07)'}`,borderRadius:16,padding:'36px 28px',position:'relative',backdropFilter:'blur(10px)' }}>
+              {p.highlight && <div style={{ position:'absolute',top:0,left:0,right:0,height:2,background:'linear-gradient(90deg,#4400ff,#00e5ff,#cc00ff)',borderRadius:'16px 16px 0 0' }} />}
+              {p.badge && <div style={{ position:'absolute',top:-12,left:'50%',transform:'translateX(-50%)',background:'linear-gradient(135deg,#4400ff,#cc00ff)',color:'#fff',fontFamily:SANS,fontSize:10,fontWeight:700,padding:'4px 14px',borderRadius:100,letterSpacing:'.08em',whiteSpace:'nowrap' }}>{p.badge}</div>}
+              <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.2em',color:'rgba(255,255,255,.4)',textTransform:'uppercase',marginBottom:10 }}>{p.tier}</div>
               <div style={{ marginBottom:8 }}>
                 <span style={{ fontFamily:DISPLAY,fontSize:46,fontWeight:400,color:'#fff' }}>{p.price}</span>
-                <span style={{ fontFamily:SANS,fontSize:13,color:'#555' }}>{p.period}</span>
+                <span style={{ fontFamily:SANS,fontSize:13,color:'rgba(255,255,255,.3)' }}>{p.period}</span>
               </div>
-              <p style={{ fontFamily:SANS,fontSize:13,color:'#555',lineHeight:1.65,marginBottom:24 }}>{p.desc}</p>
+              <p style={{ fontFamily:SANS,fontSize:13,color:'rgba(255,255,255,.4)',lineHeight:1.65,marginBottom:24 }}>{p.desc}</p>
               <div style={{ marginBottom:28 }}>
                 {p.features.map((f,i)=>(
-                  <div key={i} style={{ fontFamily:SANS,fontSize:13,color:'#777',padding:'7px 0',borderBottom:'1px solid #161616',display:'flex',gap:10 }}>
-                    <span style={{ color:'#fff',flexShrink:0 }}>✓</span>{f}
+                  <div key={i} style={{ fontFamily:SANS,fontSize:13,color:'rgba(255,255,255,.55)',padding:'7px 0',borderBottom:'1px solid rgba(255,255,255,.06)',display:'flex',gap:10 }}>
+                    <span style={{ background:'linear-gradient(135deg,#80d4ff,#c084ff)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',flexShrink:0 }}>✓</span>{f}
                   </div>
                 ))}
               </div>
-              <button onClick={() => setView('login')} className="wbtn" style={{ width:'100%',background:p.highlight?'#fff':'transparent',color:p.highlight?'#000':'#fff',border:'1px solid #2e2e2e',padding:'13px 0',borderRadius:7,fontSize:13,fontFamily:SANS,fontWeight:p.highlight?600:400,letterSpacing:'.04em' }}>{p.cta}</button>
+              <button onClick={() => setView('login')} className="wbtn" style={{ width:'100%',background:p.highlight?'linear-gradient(135deg,#4400ff,#0088ff)':'rgba(255,255,255,.06)',color:'#fff',border:`1px solid ${p.highlight?'transparent':'rgba(255,255,255,.12)'}`,padding:'13px 0',borderRadius:9,fontSize:13,fontFamily:SANS,fontWeight:600,letterSpacing:'.04em',cursor:'pointer' }}>{p.cta}</button>
             </div>
           ))}
         </div>
       </section>
 
-      <div style={{ height:1,background:'linear-gradient(90deg,transparent,#222,transparent)' }} />
-
-      {/* FAQ */}
+      {/* ═══ FAQ ═══ */}
       <section style={{ padding:'80px 52px' }}>
         <div style={{ maxWidth:640,margin:'0 auto' }}>
           <div style={{ textAlign:'center',marginBottom:52 }}>
             <h2 style={{ fontFamily:DISPLAY,fontSize:40,fontWeight:400,color:'#fff' }}>Questions</h2>
           </div>
           {FAQS.map((f,i)=>(
-            <div key={i} style={{ borderBottom:'1px solid #1a1a1a' }}>
-              <button className="fq" onClick={()=>setOpenFaq(openFaq===i?null:i)} style={{ width:'100%',background:'none',border:'none',color:'#ccc',padding:'20px 0',textAlign:'left',cursor:'pointer',display:'flex',justifyContent:'space-between',gap:16,fontFamily:DISPLAY,fontSize:19 }}>
+            <div key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.07)' }}>
+              <button className="fq" onClick={()=>setOpenFaq(openFaq===i?null:i)} style={{ width:'100%',background:'none',border:'none',color:'rgba(255,255,255,.75)',padding:'20px 0',textAlign:'left',cursor:'pointer',display:'flex',justifyContent:'space-between',gap:16,fontFamily:DISPLAY,fontSize:19 }}>
                 {f.q}
-                <span style={{ color:'#555',fontSize:22,flexShrink:0,display:'inline-block',transition:'transform .2s',transform:openFaq===i?'rotate(45deg)':'none' }}>+</span>
+                <span style={{ color:'rgba(140,110,255,.8)',fontSize:22,flexShrink:0,display:'inline-block',transition:'transform .2s',transform:openFaq===i?'rotate(45deg)':'none' }}>+</span>
               </button>
-              {openFaq===i && <div style={{ fontFamily:SANS,fontSize:14,color:'#666',lineHeight:1.88,paddingBottom:20,animation:'slideAcc .3s ease' }}>{f.a}</div>}
+              {openFaq===i && <div style={{ fontFamily:SANS,fontSize:14,color:'rgba(255,255,255,.4)',lineHeight:1.88,paddingBottom:20,animation:'slideAcc .3s ease' }}>{f.a}</div>}
             </div>
           ))}
         </div>
       </section>
 
-      {/* FINAL CTA */}
+      {/* ═══ FINAL CTA ═══ */}
       <section style={{ padding:'130px 52px',textAlign:'center',position:'relative',overflow:'hidden' }}>
-        <div style={{ position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:500,height:500,borderRadius:'50%',background:'conic-gradient(from 0deg,hsl(0,100%,60%),hsl(120,100%,55%),hsl(240,100%,65%),hsl(360,100%,60%))',filter:'blur(100px)',opacity:.055,pointerEvents:'none',animation:'hueShift 12s linear infinite' }} />
+        {/* aurora bg */}
+        <div style={{ position:'absolute',width:800,height:800,borderRadius:'50%',background:'radial-gradient(circle,#4400ff 0%,#00e5ff 40%,transparent 70%)',filter:'blur(120px)',opacity:.12,top:'50%',left:'50%',transform:'translate(-50%,-50%)',pointerEvents:'none',animation:'hueRotate 15s linear infinite' }} />
+        <div style={{ position:'absolute',width:500,height:500,borderRadius:'50%',background:'radial-gradient(circle,#cc00ff 0%,transparent 70%)',filter:'blur(100px)',opacity:.1,top:'50%',left:'30%',transform:'translate(-50%,-50%)',pointerEvents:'none' }} />
+
         <h2 style={{ fontFamily:DISPLAY,fontSize:60,fontWeight:400,color:'#fff',lineHeight:1.1,marginBottom:20,position:'relative' }}>
-          You do the lashes.<br /><span style={{ color:'#666',fontStyle:'italic' }}>AURA does the rest.</span>
+          You do the lashes.<br />
+          <span style={{ background:'linear-gradient(135deg,#80d4ff 0%,#c084ff 50%,#ff84d4 100%)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',fontStyle:'italic' }}>AURA does the rest.</span>
         </h2>
-        <p style={{ fontFamily:SANS,color:'#555',fontSize:15,marginBottom:42,lineHeight:1.8 }}>Join beauty professionals who stopped losing money to missed calls and no-shows.</p>
-        <button onClick={() => setView('login')} className="wbtn" style={{ background:'#fff',color:'#000',border:'none',padding:'16px 48px',borderRadius:7,fontSize:16,fontFamily:SANS,fontWeight:600,letterSpacing:'.05em' }}>Start Your Free Trial Today</button>
-        <p style={{ fontFamily:SANS,fontSize:11,color:'#3a3a3a',marginTop:16 }}>14 days free · No card required · Cancel anytime</p>
+        <p style={{ fontFamily:SANS,color:'rgba(255,255,255,.4)',fontSize:15,marginBottom:44,lineHeight:1.8,position:'relative' }}>
+          Join beauty professionals who stopped losing money to missed calls and no-shows.
+        </p>
+        <button onClick={() => setView('login')} className="wbtn" style={{ background:'linear-gradient(135deg,#4400ff,#0088ff,#00e5ff)',color:'#fff',border:'none',padding:'17px 52px',borderRadius:9,fontSize:16,fontFamily:SANS,fontWeight:700,letterSpacing:'.05em',position:'relative',boxShadow:'0 0 60px rgba(68,0,255,.4)' }}>
+          Start Your Free Trial Today
+        </button>
+        <p style={{ fontFamily:SANS,fontSize:11,color:'rgba(255,255,255,.2)',marginTop:18,position:'relative' }}>14 days free · No card required · Cancel anytime</p>
       </section>
 
-      <footer style={{ borderTop:'1px solid #111',padding:'36px 52px',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:16 }}>
-        <div style={{ fontFamily:DISPLAY,fontSize:16,color:'#444',letterSpacing:'.08em' }}>AURA <span style={{ fontFamily:SANS,fontSize:9,letterSpacing:'.14em' }}>BY PSC AGENT</span></div>
-        <div style={{ fontFamily:SANS,fontSize:11,color:'#3a3a3a' }}>© 2025 R and G Enterprise Solutions. All rights reserved.</div>
+      <footer style={{ borderTop:'1px solid rgba(255,255,255,.06)',padding:'36px 52px',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:16 }}>
+        <div style={{ fontFamily:DISPLAY,fontSize:16,letterSpacing:'.08em',background:'linear-gradient(135deg,#80d4ff,#c084ff)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>AURA <span style={{ fontFamily:SANS,fontSize:9,letterSpacing:'.14em' }}>BY PSC AGENT</span></div>
+        <div style={{ fontFamily:SANS,fontSize:11,color:'rgba(255,255,255,.2)' }}>© 2025 R and G Enterprise Solutions. All rights reserved.</div>
         <div style={{ display:'flex',gap:20,fontFamily:SANS,fontSize:12 }}>
-          {['Privacy','Terms','Contact'].map(l=><span key={l} style={{ color:'#3a3a3a',cursor:'pointer' }}>{l}</span>)}
+          {['Privacy','Terms','Contact'].map(l=><span key={l} style={{ color:'rgba(255,255,255,.2)',cursor:'pointer' }}>{l}</span>)}
         </div>
       </footer>
     </div>
