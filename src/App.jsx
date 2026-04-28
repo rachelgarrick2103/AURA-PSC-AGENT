@@ -88,22 +88,6 @@ const FAQS = [
 ]
 
 
-const PRICING = [
-  { tier:'Solo',           price:'£39',  period:'/month', desc:'For the one-woman studio juggling everything.',     features:['Up to 150 inbound calls/month','24h outbound reminders','10 FAQ answers','Booking integration','Call summary emails','Email support'],                                                     cta:'Start Free Trial', highlight:false },
-  { tier:'Studio',         price:'£69',  period:'/month', desc:'For growing studios ready to run like a business.', features:['Unlimited inbound calls','24h + 2h reminders','Unlimited FAQ answers','Custom agent name & voice','Call recordings & transcripts','Analytics dashboard','Priority support'],               cta:'Start Free Trial', highlight:true, badge:'Most Popular' },
-  { tier:'Multi-Location', price:'£120', period:'/month', desc:'Runs multiple chairs or locations under one roof.',  features:['Up to 3 locations','Multiple agents','Team access','All Studio features','Booking analytics','Dedicated onboarding'],                                                                     cta:'Book a Demo',    highlight:false },
-]
-const FAQS = [
-  { q:'Can I keep my existing phone number?',     a:'Yes. We set up call forwarding so your number stays the same. AURA answers on your behalf.' },
-  { q:'What booking systems does it connect to?', a:'Acuity, Fresha, Timely, Google Calendar, and Calendly. More integrations added monthly.' },
-  { q:'Can clients still reach a human?',         a:'Absolutely. AURA hands off to you via text alert if a client specifically asks or cannot resolve something.' },
-  { q:'How long does setup take?',                a:'Most clients are fully live within 24 hours. Our setup wizard walks you through every step.' },
-]
-
-function Landing({ setView }) {
-  const [openFaq, setOpenFaq] = useState(null)
-  return (
-    <div style={{ fontFamily:DISPLAY, background:'#04030f', color:'#fff', overflowX:'hidden' }}>
       <style>{`
         @keyframes drift1 { 0%,100%{transform:translate(0,0) scale(1) rotate(0deg)} 25%{transform:translate(80px,-60px) scale(1.12) rotate(8deg)} 50%{transform:translate(-40px,80px) scale(0.95) rotate(-5deg)} 75%{transform:translate(60px,30px) scale(1.08) rotate(3deg)} }
         @keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1) rotate(0deg)} 25%{transform:translate(-70px,50px) scale(1.1) rotate(-6deg)} 50%{transform:translate(90px,-50px) scale(1.05) rotate(10deg)} 75%{transform:translate(-30px,-70px) scale(0.92) rotate(-4deg)} }
