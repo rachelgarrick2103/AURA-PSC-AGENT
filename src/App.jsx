@@ -75,151 +75,141 @@ export default function AURAApp() {
 }
 
 // ── LANDING ───────────────────────────────────────────────────────────────
+const CHANNELS = [
+  { name:'Phone Calls',     desc:'AURA answers every inbound call, books appointments and handles FAQs in real time.',          icon:'M' },
+  { name:'WhatsApp',        desc:'Clients message your WhatsApp number. AURA replies instantly and books them in.',              icon:'W' },
+  { name:'SMS / Text',      desc:'Automated text reminders before every appointment — and two-way reply handling.',              icon:'S' },
+  { name:'Instagram DMs',   desc:'AURA monitors your Instagram inbox and responds to every enquiry within seconds.',            icon:'I' },
+  { name:'Email',           desc:'Every email gets a professional reply. Bookings confirmed, questions answered, no backlog.',   icon:'E' },
+]
+
 const PRICING = [
-  { tier:'Solo',           price:'£39',  period:'/month', desc:'For the one-woman studio juggling everything.',     features:['Up to 150 inbound calls/month','24h outbound reminders','10 FAQ answers','Booking integration','Call summary emails','Email support'],                                                     cta:'Start Free Trial', highlight:false },
-  { tier:'Studio',         price:'£69',  period:'/month', desc:'For growing studios ready to run like a business.', features:['Unlimited inbound calls','24h + 2h reminders','Unlimited FAQ answers','Custom agent name & voice','Call recordings & transcripts','Analytics dashboard','Priority support'],               cta:'Start Free Trial', highlight:true, badge:'Most Popular' },
-  { tier:'Multi-Location', price:'£120', period:'/month', desc:'Runs multiple chairs or locations under one roof.',  features:['Up to 3 locations','Multiple agents','Team access','All Studio features','Booking analytics','Dedicated onboarding'],                                                                     cta:'Book a Demo',    highlight:false },
+  { tier:'Solo',           price:'£39',  period:'/month', desc:'For the one-woman studio juggling everything.',     features:['Up to 150 inbound calls/month','WhatsApp & SMS included','10 FAQ answers','Booking integration','Call & message summaries','Email support'],                                          cta:'Start Free Trial', highlight:false },
+  { tier:'Studio',         price:'£69',  period:'/month', desc:'For growing studios ready to run like a business.', features:['Unlimited calls & messages','All 5 channels included','Unlimited FAQ answers','Custom agent name & voice','Full conversation transcripts','Analytics dashboard','Priority support'], cta:'Start Free Trial', highlight:true, badge:'Most Popular' },
+  { tier:'Multi-Location', price:'£120', period:'/month', desc:'Runs multiple chairs or locations under one roof.',  features:['Up to 3 locations','Multiple agents','All channels per location','Team access','Booking analytics','Dedicated onboarding'],                                                        cta:'Book a Demo',    highlight:false },
 ]
+
 const FAQS = [
-  { q:'Can I keep my existing phone number?',     a:'Yes. We set up call forwarding so your number stays the same. AURA answers on your behalf.' },
-  { q:'What booking systems does it connect to?', a:'Acuity, Fresha, Timely, Google Calendar, and Calendly. More integrations added monthly.' },
-  { q:'Can clients still reach a human?',         a:'Absolutely. AURA hands off to you via text alert if a client specifically asks or if she cannot resolve something.' },
-  { q:'How long does setup take?',                a:'Most clients are fully live within 24 hours. Our setup wizard walks you through every step.' },
+  { q:'Can I keep my existing phone number?',         a:'Yes. We set up call forwarding so your number stays the same. AURA answers on your behalf.' },
+  { q:'Which booking systems does it connect to?',    a:'Acuity, Fresha, Timely, Google Calendar, and Calendly. More integrations added monthly.' },
+  { q:'Can clients still reach a human?',             a:'Absolutely. AURA hands off to you via text alert if a client specifically asks or cannot resolve something.' },
+  { q:'Do all channels work at the same time?',       a:'Yes — AURA monitors all active channels simultaneously. A client can call while another messages on WhatsApp and both get handled instantly.' },
+  { q:'How long does setup take?',                    a:'Most clients are fully live within 24 hours. Our setup wizard walks you through every step.' },
 ]
 
-
+function Landing({ setView }) {
+  const [openFaq, setOpenFaq] = useState(null)
+  return (
+    <div style={{ fontFamily:DISPLAY, background:'#04030f', color:'#fff', overflowX:'hidden' }}>
       <style>{`
-        @keyframes drift1 { 0%,100%{transform:translate(0,0) scale(1) rotate(0deg)} 25%{transform:translate(80px,-60px) scale(1.12) rotate(8deg)} 50%{transform:translate(-40px,80px) scale(0.95) rotate(-5deg)} 75%{transform:translate(60px,30px) scale(1.08) rotate(3deg)} }
-        @keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1) rotate(0deg)} 25%{transform:translate(-70px,50px) scale(1.1) rotate(-6deg)} 50%{transform:translate(90px,-50px) scale(1.05) rotate(10deg)} 75%{transform:translate(-30px,-70px) scale(0.92) rotate(-4deg)} }
-        @keyframes drift3 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(50px,70px) scale(1.15)} 66%{transform:translate(-80px,-30px) scale(0.9)} }
-        @keyframes drift4 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-60px,60px) scale(1.2)} }
-        @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes slideAcc { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes pulseGlow { 0%,100%{opacity:.7} 50%{opacity:1} }
-        @keyframes floatOrb { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-18px) scale(1.04)} }
-        @keyframes hueRotate { 0%{filter:hue-rotate(0deg) brightness(1.1) saturate(1.3)} 100%{filter:hue-rotate(360deg) brightness(1.1) saturate(1.3)} }
-        .fu{animation:fadeUp .8s ease both}
-        .d1{animation-delay:.1s}.d2{animation-delay:.25s}.d3{animation-delay:.4s}.d4{animation-delay:.58s}
-        .wbtn{transition:all .2s;cursor:pointer}.wbtn:hover{background:rgba(255,255,255,.9)!important;transform:translateY(-1px)}
-        .gbtn{cursor:pointer;transition:all .2s}.gbtn:hover{background:rgba(255,255,255,.08)!important;border-color:rgba(255,255,255,.3)!important}
-        .hlift{transition:transform .25s,box-shadow .25s}.hlift:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(80,40,255,.2)}
-        .fq{transition:color .2s;cursor:pointer}.fq:hover{color:#a0a0ff!important}
-        .stat-card:hover{border-color:rgba(100,80,255,.3)!important}
-        .stat-card{transition:border-color .3s}
-        .nav-btn:hover{color:#c0b8ff!important}
-        .nav-btn{transition:color .2s}
+        @keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(70px,-50px) scale(1.1)}50%{transform:translate(-30px,70px) scale(0.95)}75%{transform:translate(50px,20px) scale(1.07)}}
+        @keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(-60px,40px) scale(1.08)}50%{transform:translate(80px,-40px) scale(1.04)}75%{transform:translate(-20px,-60px) scale(0.93)}}
+        @keyframes drift3{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,60px) scale(1.12)}66%{transform:translate(-70px,-20px) scale(0.92)}}
+        @keyframes drift4{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,50px) scale(1.15)}}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes slideAcc{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes channelFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+        .fu{animation:fadeUp .75s ease both}
+        .d1{animation-delay:.1s}.d2{animation-delay:.22s}.d3{animation-delay:.36s}.d4{animation-delay:.5s}
+        .wbtn{transition:all .2s;cursor:pointer}.wbtn:hover{opacity:.88;transform:translateY(-1px)}
+        .gbtn{cursor:pointer;transition:all .2s}.gbtn:hover{background:rgba(255,255,255,.1)!important}
+        .hlift{transition:transform .25s,border-color .25s}.hlift:hover{transform:translateY(-4px);border-color:rgba(120,90,255,.5)!important}
+        .ch-card{transition:all .3s;cursor:default}.ch-card:hover{background:rgba(255,255,255,.06)!important;border-color:rgba(120,90,255,.3)!important;transform:translateY(-3px)}
+        .fq-btn{transition:color .2s}.fq-btn:hover{color:rgba(160,140,255,1)!important}
+        .nav-link{transition:color .2s;cursor:pointer}.nav-link:hover{color:rgba(200,180,255,1)!important}
       `}</style>
 
       {/* NAV */}
-      <nav style={{ position:'fixed',top:0,left:0,right:0,zIndex:100,background:'rgba(4,3,15,.6)',backdropFilter:'blur(20px)',borderBottom:'1px solid rgba(255,255,255,.06)',padding:'0 52px',height:58,display:'flex',alignItems:'center' }}>
-        <div style={{ fontFamily:DISPLAY,fontSize:22,letterSpacing:'.12em',color:'#fff',flex:1,background:'linear-gradient(135deg,#fff 0%,#c0b0ff 50%,#80d4ff 100%)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>
-          AURA <span style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.18em',WebkitTextFillColor:'rgba(255,255,255,.35)',verticalAlign:'middle',marginLeft:10 }}>BY PSC AGENT</span>
+      <nav style={{ position:'fixed',top:0,left:0,right:0,zIndex:200,background:'rgba(4,3,15,.75)',backdropFilter:'blur(20px)',WebkitBackdropFilter:'blur(20px)',borderBottom:'1px solid rgba(255,255,255,.06)',padding:'0 52px',height:58,display:'flex',alignItems:'center' }}>
+        <div style={{ fontFamily:DISPLAY,fontSize:22,letterSpacing:'.1em',flex:1,background:'linear-gradient(130deg,#fff 0%,#b8a4ff 50%,#7dd4ff 100%)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>
+          AURA <span style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.16em',WebkitTextFillColor:'rgba(255,255,255,.3)',verticalAlign:'middle',marginLeft:8 }}>BY PSC AGENT</span>
         </div>
         <div style={{ display:'flex',gap:8,fontFamily:SANS,alignItems:'center' }}>
-          <button onClick={() => setView('login')} className="nav-btn" style={{ background:'transparent',border:'none',color:'rgba(255,255,255,.5)',fontSize:13,padding:'8px 18px',borderRadius:8,cursor:'pointer' }}>Client Login</button>
-          <button onClick={() => setView('login')} className="wbtn" style={{ background:'#fff',color:'#0a0820',border:'none',padding:'10px 22px',borderRadius:8,fontSize:13,fontWeight:700,letterSpacing:'.04em' }}>Start Free Trial</button>
+          <button onClick={() => setView('login')} className="nav-link" style={{ background:'transparent',border:'none',color:'rgba(255,255,255,.4)',fontSize:13,padding:'8px 18px',borderRadius:8 }}>Client Login</button>
+          <button onClick={() => setView('login')} className="wbtn" style={{ background:'linear-gradient(135deg,#5533ff,#0088ff)',color:'#fff',border:'none',padding:'10px 24px',borderRadius:8,fontSize:13,fontWeight:600,letterSpacing:'.04em',boxShadow:'0 4px 20px rgba(85,51,255,.4)' }}>Start Free Trial</button>
         </div>
       </nav>
 
       {/* ═══ HERO ═══ */}
-      <section style={{ minHeight:'100vh',display:'flex',alignItems:'center',padding:'100px 52px 80px',position:'relative',overflow:'hidden' }}>
-
-        {/* Aurora background layers */}
+      <section style={{ minHeight:'100vh',display:'flex',alignItems:'center',padding:'120px 52px 80px',position:'relative',overflow:'hidden' }}>
+        {/* Aurora blobs */}
         <div style={{ position:'absolute',inset:0,background:'#04030f',zIndex:0 }} />
-
-        {/* Blob 1 — deep blue */}
-        <div style={{ position:'absolute',width:900,height:900,borderRadius:'50%',background:'radial-gradient(circle at 40% 40%, #2a0aff 0%, #0a0aff 30%, transparent 70%)',filter:'blur(90px)',opacity:.55,top:'-20%',left:'-15%',animation:'drift1 18s ease-in-out infinite',zIndex:1 }} />
-        {/* Blob 2 — cyan teal */}
-        <div style={{ position:'absolute',width:700,height:700,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%, #00e5ff 0%, #0077ff 40%, transparent 70%)',filter:'blur(80px)',opacity:.45,top:'10%',right:'-10%',animation:'drift2 22s ease-in-out infinite',zIndex:1 }} />
-        {/* Blob 3 — magenta purple */}
-        <div style={{ position:'absolute',width:600,height:600,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%, #cc00ff 0%, #7700cc 40%, transparent 70%)',filter:'blur(100px)',opacity:.4,bottom:'-10%',left:'20%',animation:'drift3 26s ease-in-out infinite',zIndex:1 }} />
-        {/* Blob 4 — electric indigo */}
-        <div style={{ position:'absolute',width:500,height:500,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%, #4400ff 0%, #2200aa 50%, transparent 70%)',filter:'blur(70px)',opacity:.5,bottom:'5%',right:'15%',animation:'drift4 20s ease-in-out infinite',zIndex:1 }} />
-        {/* Blob 5 — hot pink accent */}
-        <div style={{ position:'absolute',width:400,height:400,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%, #ff00aa 0%, #aa0066 50%, transparent 70%)',filter:'blur(90px)',opacity:.3,top:'40%',left:'40%',animation:'drift2 30s ease-in-out infinite reverse',zIndex:1 }} />
-        {/* Blob 6 — deep teal */}
-        <div style={{ position:'absolute',width:550,height:550,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%, #00ffcc 0%, #007755 50%, transparent 70%)',filter:'blur(100px)',opacity:.25,top:'5%',left:'45%',animation:'drift1 24s ease-in-out infinite reverse',zIndex:1 }} />
-
-        {/* Grain overlay */}
-        <div style={{ position:'absolute',inset:0,zIndex:2,opacity:.04,backgroundImage:'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")',backgroundRepeat:'repeat',backgroundSize:'128px' }} />
-
+        <div style={{ position:'absolute',width:900,height:900,borderRadius:'50%',background:'radial-gradient(circle at 40% 40%,#2200ee 0%,#0800cc 35%,transparent 70%)',filter:'blur(90px)',opacity:.6,top:'-25%',left:'-18%',animation:'drift1 20s ease-in-out infinite',zIndex:1 }} />
+        <div style={{ position:'absolute',width:750,height:750,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%,#0099ff 0%,#0055cc 40%,transparent 70%)',filter:'blur(80px)',opacity:.45,top:'5%',right:'-12%',animation:'drift2 24s ease-in-out infinite',zIndex:1 }} />
+        <div style={{ position:'absolute',width:650,height:650,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%,#aa00ff 0%,#6600cc 40%,transparent 70%)',filter:'blur(100px)',opacity:.35,bottom:'-15%',left:'15%',animation:'drift3 28s ease-in-out infinite',zIndex:1 }} />
+        <div style={{ position:'absolute',width:500,height:500,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%,#00ccff 0%,#0088bb 50%,transparent 70%)',filter:'blur(80px)',opacity:.3,bottom:'10%',right:'20%',animation:'drift4 22s ease-in-out infinite',zIndex:1 }} />
+        <div style={{ position:'absolute',width:400,height:400,borderRadius:'50%',background:'radial-gradient(circle at 50% 50%,#ff00cc 0%,#aa0088 50%,transparent 70%)',filter:'blur(90px)',opacity:.2,top:'35%',left:'38%',animation:'drift2 32s ease-in-out infinite reverse',zIndex:1 }} />
         {/* Vignette */}
-        <div style={{ position:'absolute',inset:0,zIndex:2,background:'radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(4,3,15,.8) 100%)',pointerEvents:'none' }} />
+        <div style={{ position:'absolute',inset:0,zIndex:2,background:'radial-gradient(ellipse 90% 90% at 50% 50%,transparent 30%,rgba(4,3,15,.7) 100%)',pointerEvents:'none' }} />
 
-        {/* Content */}
-        <div style={{ maxWidth:1200,margin:'0 auto',width:'100%',position:'relative',zIndex:10,display:'grid',gridTemplateColumns:'1fr 1fr',gap:80,alignItems:'center' }}>
-
-          {/* Left text */}
-          <div>
-            <div className="fu" style={{ display:'inline-flex',alignItems:'center',gap:8,background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.12)',borderRadius:100,padding:'7px 18px',marginBottom:32,fontFamily:SANS,backdropFilter:'blur(10px)' }}>
-              <span style={{ width:6,height:6,borderRadius:'50%',background:'linear-gradient(135deg,#00e5ff,#cc00ff)',display:'inline-block',animation:'pulseGlow 2s ease-in-out infinite' }} />
-              <span style={{ fontSize:10,color:'rgba(255,255,255,.7)',letterSpacing:'.2em',textTransform:'uppercase' }}>AI Receptionist for Beauty Businesses</span>
-            </div>
-
-            <h1 className="fu d1" style={{ fontSize:64,lineHeight:1.06,fontWeight:400,marginBottom:24,letterSpacing:'-.015em' }}>
-              Your clients call.<br />
-              <span style={{ background:'linear-gradient(135deg, #80d4ff 0%, #c084ff 40%, #ff80d4 80%)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', fontStyle:'italic' }}>
-                AURA answers.
-              </span>
-            </h1>
-
-            <p className="fu d2" style={{ fontFamily:SANS,fontSize:16,color:'rgba(255,255,255,.55)',lineHeight:1.85,marginBottom:40,maxWidth:420 }}>
-              The AI receptionist built for solo lash techs and beauty studios. Books appointments, handles FAQs, and calls clients before they no-show — 24/7.
-            </p>
-
-            <div className="fu d3" style={{ display:'flex',gap:12 }}>
-              <button onClick={() => setView('login')} className="wbtn" style={{ background:'#fff',color:'#0a0820',border:'none',padding:'15px 32px',borderRadius:9,fontSize:15,fontFamily:SANS,fontWeight:700,letterSpacing:'.04em' }}>
-                Start 14-Day Free Trial
-              </button>
-              <button onClick={() => setView('login')} className="gbtn" style={{ background:'rgba(255,255,255,.05)',color:'rgba(255,255,255,.7)',border:'1px solid rgba(255,255,255,.15)',padding:'15px 24px',borderRadius:9,fontSize:15,fontFamily:SANS,backdropFilter:'blur(10px)' }}>
-                Client Login →
-              </button>
-            </div>
-
-            <p className="fu d4" style={{ fontFamily:SANS,fontSize:11,color:'rgba(255,255,255,.25)',marginTop:16,letterSpacing:'.08em' }}>
-              No card required · Cancel any time · Live in 24 hours
-            </p>
+        <div style={{ maxWidth:1100,margin:'0 auto',width:'100%',position:'relative',zIndex:10,textAlign:'center' }}>
+          <div className="fu" style={{ display:'inline-flex',alignItems:'center',gap:8,background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.1)',borderRadius:100,padding:'7px 20px',marginBottom:36,fontFamily:SANS,backdropFilter:'blur(10px)' }}>
+            <span style={{ width:6,height:6,borderRadius:'50%',background:'linear-gradient(135deg,#00ccff,#aa00ff)',display:'inline-block' }} />
+            <span style={{ fontSize:10,color:'rgba(255,255,255,.6)',letterSpacing:'.2em',textTransform:'uppercase' }}>AI Receptionist for Beauty Businesses</span>
           </div>
 
-          {/* Right — aurora orb */}
-          <div className="fu d2" style={{ display:'flex',justifyContent:'center',alignItems:'center',position:'relative',height:500 }}>
-            {/* Outer glow rings */}
-            <div style={{ position:'absolute',width:380,height:380,borderRadius:'50%',background:'conic-gradient(from 0deg,#2a0aff,#00e5ff,#cc00ff,#ff00aa,#00ffcc,#4400ff,#2a0aff)',filter:'blur(60px)',opacity:.25,animation:'floatOrb 4s ease-in-out infinite, hueRotate 10s linear infinite' }} />
-            <div style={{ position:'absolute',width:300,height:300,borderRadius:'50%',background:'conic-gradient(from 90deg,#00e5ff,#cc00ff,#ff00aa,#2a0aff,#00ffcc,#00e5ff)',filter:'blur(30px)',opacity:.4,animation:'floatOrb 4s ease-in-out infinite, hueRotate 8s linear infinite reverse' }} />
+          <h1 className="fu d1" style={{ fontSize:68,lineHeight:1.05,fontWeight:400,marginBottom:20,letterSpacing:'-.015em',maxWidth:800,margin:'0 auto 20px' }}>
+            One AI.<br />
+            <span style={{ background:'linear-gradient(135deg,#7dd4ff 0%,#b8a4ff 40%,#ff88cc 100%)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',fontStyle:'italic' }}>
+              Every channel.
+            </span>
+          </h1>
 
-            {/* Main orb */}
-            <div style={{ width:220,height:220,borderRadius:'50%',position:'relative',zIndex:5,animation:'floatOrb 4s ease-in-out infinite, hueRotate 6s linear infinite',background:'conic-gradient(from 0deg,hsl(240,100%,60%),hsl(180,100%,60%),hsl(300,100%,60%),hsl(200,100%,65%),hsl(270,100%,65%),hsl(240,100%,60%))',boxShadow:'0 0 80px rgba(100,50,255,.6), 0 0 160px rgba(0,200,255,.3)' }} />
+          <p className="fu d2" style={{ fontFamily:SANS,fontSize:17,color:'rgba(255,255,255,.5)',lineHeight:1.8,marginBottom:16,maxWidth:520,margin:'0 auto 16px' }}>
+            AURA handles your calls, WhatsApp, Instagram DMs, SMS and email — so you never miss a booking, no matter where your clients reach out.
+          </p>
 
-            {/* Floating stat pills */}
-            <div style={{ position:'absolute',top:'12%',right:'0%',background:'rgba(255,255,255,.07)',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,.12)',borderRadius:12,padding:'12px 16px',fontFamily:SANS,animation:'floatOrb 5s ease-in-out infinite',animationDelay:'1s' }}>
-              <div style={{ fontSize:18,fontWeight:700,color:'#fff',marginBottom:2 }}>8</div>
-              <div style={{ fontSize:10,color:'rgba(255,255,255,.45)',letterSpacing:'.08em' }}>Calls today</div>
-            </div>
-            <div style={{ position:'absolute',bottom:'18%',left:'-5%',background:'rgba(255,255,255,.07)',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,.12)',borderRadius:12,padding:'12px 16px',fontFamily:SANS,animation:'floatOrb 6s ease-in-out infinite',animationDelay:'.5s' }}>
-              <div style={{ fontSize:18,fontWeight:700,color:'#fff',marginBottom:2 }}>5</div>
-              <div style={{ fontSize:10,color:'rgba(255,255,255,.45)',letterSpacing:'.08em' }}>Bookings made</div>
-            </div>
-            <div style={{ position:'absolute',bottom:'35%',right:'-8%',background:'linear-gradient(135deg,rgba(0,229,255,.15),rgba(204,0,255,.15))',backdropFilter:'blur(20px)',border:'1px solid rgba(255,255,255,.15)',borderRadius:12,padding:'12px 16px',fontFamily:SANS,animation:'floatOrb 4.5s ease-in-out infinite',animationDelay:'2s' }}>
-              <div style={{ fontSize:12,fontWeight:600,color:'#00e5ff',marginBottom:2 }}>✓ Booking confirmed</div>
-              <div style={{ fontSize:10,color:'rgba(255,255,255,.45)' }}>Mega Volume — 14 Nov 10:00</div>
-            </div>
+          {/* Channel tags */}
+          <div className="fu d3" style={{ display:'flex',gap:10,justifyContent:'center',flexWrap:'wrap',marginBottom:44,marginTop:24 }}>
+            {['Phone Calls','WhatsApp','Instagram DMs','SMS / Text','Email'].map((c,i) => (
+              <span key={i} style={{ fontFamily:SANS,fontSize:12,color:'rgba(255,255,255,.6)',background:'rgba(255,255,255,.05)',border:'1px solid rgba(255,255,255,.1)',borderRadius:100,padding:'6px 16px',letterSpacing:'.04em',backdropFilter:'blur(8px)' }}>{c}</span>
+            ))}
+          </div>
 
-            <div style={{ position:'absolute',bottom:30,fontFamily:SANS,fontSize:10,color:'rgba(255,255,255,.2)',letterSpacing:'.2em',textTransform:'uppercase' }}>Always on · Always listening</div>
+          <div className="fu d4" style={{ display:'flex',gap:14,justifyContent:'center' }}>
+            <button onClick={() => setView('login')} className="wbtn" style={{ background:'linear-gradient(135deg,#5533ff,#0088ff)',color:'#fff',border:'none',padding:'16px 36px',borderRadius:9,fontSize:15,fontFamily:SANS,fontWeight:700,letterSpacing:'.04em',boxShadow:'0 8px 40px rgba(85,51,255,.45)' }}>
+              Start 14-Day Free Trial
+            </button>
+            <button onClick={() => setView('login')} className="gbtn" style={{ background:'rgba(255,255,255,.05)',color:'rgba(255,255,255,.65)',border:'1px solid rgba(255,255,255,.12)',padding:'16px 28px',borderRadius:9,fontSize:15,fontFamily:SANS,backdropFilter:'blur(10px)' }}>
+              Client Login →
+            </button>
+          </div>
+          <p style={{ fontFamily:SANS,fontSize:11,color:'rgba(255,255,255,.2)',marginTop:16,letterSpacing:'.08em' }}>No card required · Cancel any time · Live in 24 hours</p>
+        </div>
+      </section>
+
+      {/* ═══ CHANNELS ═══ */}
+      <section style={{ padding:'100px 52px',position:'relative',overflow:'hidden' }}>
+        <div style={{ position:'absolute',width:600,height:600,borderRadius:'50%',background:'radial-gradient(circle,#3300cc 0%,transparent 70%)',filter:'blur(130px)',opacity:.12,top:'-20%',right:'-5%',pointerEvents:'none',zIndex:0 }} />
+        <div style={{ maxWidth:1100,margin:'0 auto',position:'relative',zIndex:1 }}>
+          <div style={{ textAlign:'center',marginBottom:64 }}>
+            <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'rgba(150,120,255,.8)',textTransform:'uppercase',marginBottom:14 }}>Every Channel. One Agent.</div>
+            <h2 style={{ fontFamily:DISPLAY,fontSize:44,fontWeight:400,color:'#fff',lineHeight:1.2,maxWidth:600,margin:'0 auto' }}>Wherever your clients are, AURA is already there</h2>
+          </div>
+
+          <div style={{ display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:14 }}>
+            {CHANNELS.map((ch,i) => (
+              <div key={i} className="ch-card" style={{ background:'rgba(255,255,255,.03)',border:'1px solid rgba(255,255,255,.07)',borderRadius:16,padding:'28px 22px',animation:`channelFloat ${4+i*.4}s ease-in-out infinite`,animationDelay:`${i*.3}s` }}>
+                <div style={{ width:44,height:44,borderRadius:12,background:'linear-gradient(135deg,rgba(85,51,255,.3),rgba(0,136,255,.3))',border:'1px solid rgba(255,255,255,.1)',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:16,fontFamily:SANS,fontSize:13,fontWeight:700,color:'rgba(200,180,255,.9)',letterSpacing:'.04em' }}>{ch.icon}</div>
+                <div style={{ fontFamily:DISPLAY,fontSize:18,fontWeight:400,color:'#fff',marginBottom:10 }}>{ch.name}</div>
+                <div style={{ fontFamily:SANS,fontSize:12,color:'rgba(255,255,255,.38)',lineHeight:1.7 }}>{ch.desc}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ═══ STATS ═══ */}
-      <section style={{ background:'rgba(255,255,255,.02)',borderTop:'1px solid rgba(255,255,255,.06)',borderBottom:'1px solid rgba(255,255,255,.06)',padding:'60px 52px' }}>
+      <section style={{ background:'rgba(255,255,255,.02)',borderTop:'1px solid rgba(255,255,255,.05)',borderBottom:'1px solid rgba(255,255,255,.05)',padding:'60px 52px' }}>
         <div style={{ maxWidth:900,margin:'0 auto',display:'grid',gridTemplateColumns:'1fr 1fr 1fr' }}>
           {[
             {val:'£320',lbl:'Average monthly revenue lost to no-shows per solo tech'},
-            {val:'67%', lbl:'Of missed calls from new clients who never call back'},
+            {val:'67%', lbl:'Of missed client messages that never get a reply'},
             {val:'94%', lbl:'Client satisfaction rate after switching to AURA'},
           ].map((s,i)=>(
-            <div key={i} className="stat-card" style={{ padding:'28px 40px',borderRight:i<2?'1px solid rgba(255,255,255,.06)':'none',textAlign:'center' }}>
-              <div style={{ fontFamily:DISPLAY,fontSize:52,fontWeight:400,marginBottom:10,background:'linear-gradient(135deg,#80d4ff,#c084ff)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>{s.val}</div>
-              <div style={{ fontFamily:SANS,fontSize:12,color:'rgba(255,255,255,.4)',lineHeight:1.65,maxWidth:180,margin:'0 auto' }}>{s.lbl}</div>
+            <div key={i} style={{ padding:'28px 40px',borderRight:i<2?'1px solid rgba(255,255,255,.06)':'none',textAlign:'center' }}>
+              <div style={{ fontFamily:DISPLAY,fontSize:52,fontWeight:400,marginBottom:10,background:'linear-gradient(135deg,#7dd4ff,#b8a4ff)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>{s.val}</div>
+              <div style={{ fontFamily:SANS,fontSize:12,color:'rgba(255,255,255,.35)',lineHeight:1.65,maxWidth:180,margin:'0 auto' }}>{s.lbl}</div>
             </div>
           ))}
         </div>
@@ -227,24 +217,23 @@ const FAQS = [
 
       {/* ═══ HOW IT WORKS ═══ */}
       <section style={{ padding:'100px 52px',position:'relative',overflow:'hidden' }}>
-        {/* subtle aurora accent */}
-        <div style={{ position:'absolute',width:600,height:600,borderRadius:'50%',background:'radial-gradient(circle,#4400ff 0%,transparent 70%)',filter:'blur(120px)',opacity:.12,top:'-20%',right:'-10%',pointerEvents:'none' }} />
+        <div style={{ position:'absolute',width:500,height:500,borderRadius:'50%',background:'radial-gradient(circle,#0044ff 0%,transparent 70%)',filter:'blur(120px)',opacity:.1,bottom:'-10%',left:'-5%',pointerEvents:'none' }} />
         <div style={{ maxWidth:1100,margin:'0 auto',position:'relative' }}>
           <div style={{ textAlign:'center',marginBottom:72 }}>
-            <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'rgba(140,110,255,.8)',textTransform:'uppercase',marginBottom:14 }}>How It Works</div>
-            <h2 style={{ fontFamily:DISPLAY,fontSize:44,fontWeight:400,color:'#fff',lineHeight:1.2 }}>Up and running before your next client walks in</h2>
+            <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'rgba(150,120,255,.8)',textTransform:'uppercase',marginBottom:14 }}>How It Works</div>
+            <h2 style={{ fontFamily:DISPLAY,fontSize:44,fontWeight:400,color:'#fff',lineHeight:1.2 }}>Up and running before your next client reaches out</h2>
           </div>
-          <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:40 }}>
+          <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:24 }}>
             {[
-              {n:'01',t:'Connect in minutes',b:'Link your booking system — Acuity, Fresha, Timely, or Google Calendar. AURA reads your live availability.',color:'#80d4ff'},
-              {n:'02',t:'AURA takes the calls',b:'Clients call your existing number. AURA answers, books them in, handles FAQs and reschedules — 24/7.',color:'#c084ff'},
-              {n:'03',t:'Zero no-shows',b:"AURA calls every client before their appointment. If they can't make it, she reschedules and fills the slot.",color:'#ff84d4'},
+              {n:'01',t:'Connect your channels',b:'Link your booking system, WhatsApp Business number, Instagram account, and email. Takes under an hour.',accent:'#7dd4ff'},
+              {n:'02',t:'AURA handles everything',b:'Clients reach out on any channel. AURA replies instantly, books them in, answers questions — around the clock.',accent:'#b8a4ff'},
+              {n:'03',t:'Zero missed bookings',b:'Reminders go out automatically before every appointment across every channel. No-shows become a thing of the past.',accent:'#ff88cc'},
             ].map((h,i)=>(
               <div key={i} style={{ background:'rgba(255,255,255,.03)',border:'1px solid rgba(255,255,255,.07)',borderRadius:16,padding:'32px 28px',position:'relative',overflow:'hidden' }}>
-                <div style={{ position:'absolute',top:0,left:0,right:0,height:2,background:`linear-gradient(90deg,transparent,${h.color},transparent)` }} />
-                <div style={{ fontFamily:DISPLAY,fontSize:64,fontWeight:400,color:'rgba(255,255,255,.06)',marginBottom:16,lineHeight:1 }}>{h.n}</div>
+                <div style={{ position:'absolute',top:0,left:0,right:0,height:2,background:`linear-gradient(90deg,transparent,${h.accent},transparent)` }} />
+                <div style={{ fontFamily:DISPLAY,fontSize:60,fontWeight:400,color:'rgba(255,255,255,.05)',marginBottom:16,lineHeight:1 }}>{h.n}</div>
                 <h3 style={{ fontFamily:DISPLAY,fontSize:22,fontWeight:400,color:'#fff',marginBottom:12 }}>{h.t}</h3>
-                <p style={{ fontFamily:SANS,fontSize:14,color:'rgba(255,255,255,.45)',lineHeight:1.88 }}>{h.b}</p>
+                <p style={{ fontFamily:SANS,fontSize:14,color:'rgba(255,255,255,.4)',lineHeight:1.88 }}>{h.b}</p>
               </div>
             ))}
           </div>
@@ -252,32 +241,32 @@ const FAQS = [
       </section>
 
       {/* ═══ PRICING ═══ */}
-      <section style={{ background:'rgba(255,255,255,.015)',borderTop:'1px solid rgba(255,255,255,.06)',padding:'100px 52px',position:'relative',overflow:'hidden' }}>
-        <div style={{ position:'absolute',width:700,height:700,borderRadius:'50%',background:'radial-gradient(circle,#0044ff 0%,transparent 70%)',filter:'blur(130px)',opacity:.1,bottom:'-30%',left:'-10%',pointerEvents:'none' }} />
-        <div style={{ textAlign:'center',marginBottom:60 }}>
-          <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'rgba(140,110,255,.8)',textTransform:'uppercase',marginBottom:14 }}>Pricing</div>
+      <section style={{ background:'rgba(255,255,255,.015)',borderTop:'1px solid rgba(255,255,255,.05)',padding:'100px 52px',position:'relative',overflow:'hidden' }}>
+        <div style={{ position:'absolute',width:700,height:700,borderRadius:'50%',background:'radial-gradient(circle,#0033ee 0%,transparent 70%)',filter:'blur(130px)',opacity:.09,bottom:'-30%',right:'-10%',pointerEvents:'none' }} />
+        <div style={{ textAlign:'center',marginBottom:64 }}>
+          <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'rgba(150,120,255,.8)',textTransform:'uppercase',marginBottom:14 }}>Pricing</div>
           <h2 style={{ fontFamily:DISPLAY,fontSize:44,fontWeight:400,color:'#fff' }}>Straightforward. No surprises.</h2>
-          <p style={{ fontFamily:SANS,color:'rgba(255,255,255,.35)',marginTop:12,fontSize:14 }}>14-day free trial on all plans. Cancel anytime.</p>
+          <p style={{ fontFamily:SANS,color:'rgba(255,255,255,.3)',marginTop:12,fontSize:14 }}>14-day free trial on all plans. Cancel anytime.</p>
         </div>
         <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:16,maxWidth:960,margin:'0 auto' }}>
           {PRICING.map((p)=>(
-            <div key={p.tier} className="hlift" style={{ background: p.highlight ? 'linear-gradient(135deg,rgba(80,40,200,.25),rgba(0,150,255,.15))' : 'rgba(255,255,255,.03)', border:`1px solid ${p.highlight?'rgba(140,100,255,.5)':'rgba(255,255,255,.07)'}`,borderRadius:16,padding:'36px 28px',position:'relative',backdropFilter:'blur(10px)' }}>
-              {p.highlight && <div style={{ position:'absolute',top:0,left:0,right:0,height:2,background:'linear-gradient(90deg,#4400ff,#00e5ff,#cc00ff)',borderRadius:'16px 16px 0 0' }} />}
-              {p.badge && <div style={{ position:'absolute',top:-12,left:'50%',transform:'translateX(-50%)',background:'linear-gradient(135deg,#4400ff,#cc00ff)',color:'#fff',fontFamily:SANS,fontSize:10,fontWeight:700,padding:'4px 14px',borderRadius:100,letterSpacing:'.08em',whiteSpace:'nowrap' }}>{p.badge}</div>}
-              <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.2em',color:'rgba(255,255,255,.4)',textTransform:'uppercase',marginBottom:10 }}>{p.tier}</div>
+            <div key={p.tier} className="hlift" style={{ background:p.highlight?'rgba(85,51,255,.12)':'rgba(255,255,255,.03)',border:`1px solid ${p.highlight?'rgba(120,90,255,.45)':'rgba(255,255,255,.07)'}`,borderRadius:16,padding:'36px 28px',position:'relative',backdropFilter:'blur(10px)' }}>
+              {p.highlight && <div style={{ position:'absolute',top:0,left:0,right:0,height:2,background:'linear-gradient(90deg,#5533ff,#0088ff,#aa00ff)',borderRadius:'16px 16px 0 0' }} />}
+              {p.badge && <div style={{ position:'absolute',top:-12,left:'50%',transform:'translateX(-50%)',background:'linear-gradient(135deg,#5533ff,#0088ff)',color:'#fff',fontFamily:SANS,fontSize:10,fontWeight:700,padding:'4px 16px',borderRadius:100,letterSpacing:'.08em',whiteSpace:'nowrap' }}>{p.badge}</div>}
+              <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.2em',color:'rgba(255,255,255,.35)',textTransform:'uppercase',marginBottom:10 }}>{p.tier}</div>
               <div style={{ marginBottom:8 }}>
                 <span style={{ fontFamily:DISPLAY,fontSize:46,fontWeight:400,color:'#fff' }}>{p.price}</span>
-                <span style={{ fontFamily:SANS,fontSize:13,color:'rgba(255,255,255,.3)' }}>{p.period}</span>
+                <span style={{ fontFamily:SANS,fontSize:13,color:'rgba(255,255,255,.25)' }}>{p.period}</span>
               </div>
-              <p style={{ fontFamily:SANS,fontSize:13,color:'rgba(255,255,255,.4)',lineHeight:1.65,marginBottom:24 }}>{p.desc}</p>
+              <p style={{ fontFamily:SANS,fontSize:13,color:'rgba(255,255,255,.35)',lineHeight:1.65,marginBottom:24 }}>{p.desc}</p>
               <div style={{ marginBottom:28 }}>
                 {p.features.map((f,i)=>(
-                  <div key={i} style={{ fontFamily:SANS,fontSize:13,color:'rgba(255,255,255,.55)',padding:'7px 0',borderBottom:'1px solid rgba(255,255,255,.06)',display:'flex',gap:10 }}>
-                    <span style={{ background:'linear-gradient(135deg,#80d4ff,#c084ff)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',flexShrink:0 }}>✓</span>{f}
+                  <div key={i} style={{ fontFamily:SANS,fontSize:13,color:'rgba(255,255,255,.5)',padding:'7px 0',borderBottom:'1px solid rgba(255,255,255,.05)',display:'flex',gap:10 }}>
+                    <span style={{ background:'linear-gradient(135deg,#7dd4ff,#b8a4ff)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',flexShrink:0,fontWeight:700 }}>✓</span>{f}
                   </div>
                 ))}
               </div>
-              <button onClick={() => setView('login')} className="wbtn" style={{ width:'100%',background:p.highlight?'linear-gradient(135deg,#4400ff,#0088ff)':'rgba(255,255,255,.06)',color:'#fff',border:`1px solid ${p.highlight?'transparent':'rgba(255,255,255,.12)'}`,padding:'13px 0',borderRadius:9,fontSize:13,fontFamily:SANS,fontWeight:600,letterSpacing:'.04em',cursor:'pointer' }}>{p.cta}</button>
+              <button onClick={() => setView('login')} className="wbtn" style={{ width:'100%',background:p.highlight?'linear-gradient(135deg,#5533ff,#0088ff)':'rgba(255,255,255,.06)',color:'#fff',border:`1px solid ${p.highlight?'transparent':'rgba(255,255,255,.1)'}`,padding:'13px 0',borderRadius:9,fontSize:13,fontFamily:SANS,fontWeight:600,letterSpacing:'.04em',cursor:'pointer',boxShadow:p.highlight?'0 4px 24px rgba(85,51,255,.4)':'none' }}>{p.cta}</button>
             </div>
           ))}
         </div>
@@ -291,11 +280,11 @@ const FAQS = [
           </div>
           {FAQS.map((f,i)=>(
             <div key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.07)' }}>
-              <button className="fq" onClick={()=>setOpenFaq(openFaq===i?null:i)} style={{ width:'100%',background:'none',border:'none',color:'rgba(255,255,255,.75)',padding:'20px 0',textAlign:'left',cursor:'pointer',display:'flex',justifyContent:'space-between',gap:16,fontFamily:DISPLAY,fontSize:19 }}>
+              <button className="fq-btn" onClick={()=>setOpenFaq(openFaq===i?null:i)} style={{ width:'100%',background:'none',border:'none',color:'rgba(255,255,255,.7)',padding:'20px 0',textAlign:'left',cursor:'pointer',display:'flex',justifyContent:'space-between',gap:16,fontFamily:DISPLAY,fontSize:19 }}>
                 {f.q}
                 <span style={{ color:'rgba(140,110,255,.8)',fontSize:22,flexShrink:0,display:'inline-block',transition:'transform .2s',transform:openFaq===i?'rotate(45deg)':'none' }}>+</span>
               </button>
-              {openFaq===i && <div style={{ fontFamily:SANS,fontSize:14,color:'rgba(255,255,255,.4)',lineHeight:1.88,paddingBottom:20,animation:'slideAcc .3s ease' }}>{f.a}</div>}
+              {openFaq===i && <div style={{ fontFamily:SANS,fontSize:14,color:'rgba(255,255,255,.38)',lineHeight:1.88,paddingBottom:20,animation:'slideAcc .3s ease' }}>{f.a}</div>}
             </div>
           ))}
         </div>
@@ -303,28 +292,26 @@ const FAQS = [
 
       {/* ═══ FINAL CTA ═══ */}
       <section style={{ padding:'130px 52px',textAlign:'center',position:'relative',overflow:'hidden' }}>
-        {/* aurora bg */}
-        <div style={{ position:'absolute',width:800,height:800,borderRadius:'50%',background:'radial-gradient(circle,#4400ff 0%,#00e5ff 40%,transparent 70%)',filter:'blur(120px)',opacity:.12,top:'50%',left:'50%',transform:'translate(-50%,-50%)',pointerEvents:'none',animation:'hueRotate 15s linear infinite' }} />
-        <div style={{ position:'absolute',width:500,height:500,borderRadius:'50%',background:'radial-gradient(circle,#cc00ff 0%,transparent 70%)',filter:'blur(100px)',opacity:.1,top:'50%',left:'30%',transform:'translate(-50%,-50%)',pointerEvents:'none' }} />
-
+        <div style={{ position:'absolute',width:800,height:800,borderRadius:'50%',background:'radial-gradient(circle,#3300ee 0%,#0055ff 40%,transparent 70%)',filter:'blur(130px)',opacity:.1,top:'50%',left:'50%',transform:'translate(-50%,-50%)',pointerEvents:'none',animation:'drift1 20s ease-in-out infinite' }} />
+        <div style={{ position:'absolute',width:500,height:500,borderRadius:'50%',background:'radial-gradient(circle,#aa00ff 0%,transparent 70%)',filter:'blur(100px)',opacity:.08,top:'50%',left:'30%',transform:'translate(-50%,-50%)',pointerEvents:'none' }} />
         <h2 style={{ fontFamily:DISPLAY,fontSize:60,fontWeight:400,color:'#fff',lineHeight:1.1,marginBottom:20,position:'relative' }}>
           You do the lashes.<br />
-          <span style={{ background:'linear-gradient(135deg,#80d4ff 0%,#c084ff 50%,#ff84d4 100%)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',fontStyle:'italic' }}>AURA does the rest.</span>
+          <span style={{ background:'linear-gradient(135deg,#7dd4ff 0%,#b8a4ff 50%,#ff88cc 100%)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',fontStyle:'italic' }}>AURA does the rest.</span>
         </h2>
-        <p style={{ fontFamily:SANS,color:'rgba(255,255,255,.4)',fontSize:15,marginBottom:44,lineHeight:1.8,position:'relative' }}>
-          Join beauty professionals who stopped losing money to missed calls and no-shows.
+        <p style={{ fontFamily:SANS,color:'rgba(255,255,255,.35)',fontSize:15,marginBottom:44,lineHeight:1.8,position:'relative' }}>
+          Join beauty professionals who stopped losing money to missed bookings across every channel.
         </p>
-        <button onClick={() => setView('login')} className="wbtn" style={{ background:'linear-gradient(135deg,#4400ff,#0088ff,#00e5ff)',color:'#fff',border:'none',padding:'17px 52px',borderRadius:9,fontSize:16,fontFamily:SANS,fontWeight:700,letterSpacing:'.05em',position:'relative',boxShadow:'0 0 60px rgba(68,0,255,.4)' }}>
+        <button onClick={() => setView('login')} className="wbtn" style={{ background:'linear-gradient(135deg,#5533ff,#0088ff,#00ccff)',color:'#fff',border:'none',padding:'17px 52px',borderRadius:9,fontSize:16,fontFamily:SANS,fontWeight:700,letterSpacing:'.05em',position:'relative',boxShadow:'0 8px 50px rgba(85,51,255,.45)',cursor:'pointer' }}>
           Start Your Free Trial Today
         </button>
-        <p style={{ fontFamily:SANS,fontSize:11,color:'rgba(255,255,255,.2)',marginTop:18,position:'relative' }}>14 days free · No card required · Cancel anytime</p>
+        <p style={{ fontFamily:SANS,fontSize:11,color:'rgba(255,255,255,.18)',marginTop:18,position:'relative' }}>14 days free · No card required · Cancel anytime</p>
       </section>
 
-      <footer style={{ borderTop:'1px solid rgba(255,255,255,.06)',padding:'36px 52px',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:16 }}>
-        <div style={{ fontFamily:DISPLAY,fontSize:16,letterSpacing:'.08em',background:'linear-gradient(135deg,#80d4ff,#c084ff)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>AURA <span style={{ fontFamily:SANS,fontSize:9,letterSpacing:'.14em' }}>BY PSC AGENT</span></div>
-        <div style={{ fontFamily:SANS,fontSize:11,color:'rgba(255,255,255,.2)' }}>© 2025 R and G Enterprise Solutions. All rights reserved.</div>
+      <footer style={{ borderTop:'1px solid rgba(255,255,255,.05)',padding:'36px 52px',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:16 }}>
+        <div style={{ fontFamily:DISPLAY,fontSize:16,letterSpacing:'.08em',background:'linear-gradient(130deg,#7dd4ff,#b8a4ff)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent' }}>AURA <span style={{ fontFamily:SANS,fontSize:9,letterSpacing:'.14em' }}>BY PSC AGENT</span></div>
+        <div style={{ fontFamily:SANS,fontSize:11,color:'rgba(255,255,255,.18)' }}>© 2025 R and G Enterprise Solutions. All rights reserved.</div>
         <div style={{ display:'flex',gap:20,fontFamily:SANS,fontSize:12 }}>
-          {['Privacy','Terms','Contact'].map(l=><span key={l} style={{ color:'rgba(255,255,255,.2)',cursor:'pointer' }}>{l}</span>)}
+          {['Privacy','Terms','Contact'].map(l=><span key={l} style={{ color:'rgba(255,255,255,.18)',cursor:'pointer' }}>{l}</span>)}
         </div>
       </footer>
     </div>
