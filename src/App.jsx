@@ -108,7 +108,7 @@ function Landing({ setView }) {
   const [activeTestimonial, setActiveTestimonial] = useState(0)
 
   return (
-    <div style={{ fontFamily:DISPLAY, background:'#FDFCF9', color:'#0E0C0A', overflowX:'hidden' }}>
+    <div style={{ fontFamily:DISPLAY, background:'#F8FBFF', color:'#1B3A6B', overflowX:'hidden' }}>
       <style>{`
         @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -117,71 +117,71 @@ function Landing({ setView }) {
         .fu{animation:fadeUp .8s ease both}
         .d1{animation-delay:.1s}.d2{animation-delay:.25s}.d3{animation-delay:.4s}.d4{animation-delay:.55s}
         .nav-cta{transition:all .2s;cursor:pointer}
-        .nav-cta:hover{background:#0E0C0A!important;color:#FDFCF9!important}
+        .nav-cta:hover{background:#1B3A6B!important;color:#F8FBFF!important}
         .nav-login{transition:color .2s;cursor:pointer}
-        .nav-login:hover{color:#0E0C0A!important}
+        .nav-login:hover{color:#1B3A6B!important}
         .ch-row{transition:all .25s;cursor:default}
-        .ch-row:hover{background:#F5F0E8!important}
-        .ch-row:hover .ch-num{color:#0E0C0A!important}
+        .ch-row:hover{background:#EEF4FB!important}
+        .ch-row:hover .ch-num{color:#1B3A6B!important}
         .price-card{transition:transform .25s,box-shadow .25s}
-        .price-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(14,12,10,.08)!important}
+        .price-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(27,58,107,.08)!important}
         .fq-btn{transition:color .2s}
-        .fq-btn:hover{color:#0E0C0A!important}
+        .fq-btn:hover{color:#1B3A6B!important}
         .cta-btn{transition:all .2s;cursor:pointer}
         .cta-btn:hover{background:#2a2520!important}
         .ghost-btn{transition:all .2s;cursor:pointer}
-        .ghost-btn:hover{background:#0E0C0A!important;color:#FDFCF9!important}
+        .ghost-btn:hover{background:#1B3A6B!important;color:#F8FBFF!important}
         .ticker-track{display:flex;animation:marquee 30s linear infinite;width:max-content}
         .ticker-track:hover{animation-play-state:paused}
         footer a{transition:color .2s}
-        footer a:hover{color:#0E0C0A!important}
+        footer a:hover{color:#1B3A6B!important}
       `}</style>
 
       {/* ── NAV ── */}
-      <nav style={{ position:'sticky',top:0,zIndex:200,background:'rgba(253,252,249,.92)',backdropFilter:'blur(16px)',WebkitBackdropFilter:'blur(16px)',borderBottom:'1px solid #E8E2D9',padding:'0 60px',height:62,display:'flex',alignItems:'center' }}>
-        <div style={{ fontFamily:DISPLAY,fontSize:21,letterSpacing:'.1em',color:'#0E0C0A',flex:1 }}>
-          AURA <span style={{ fontFamily:SANS,fontSize:9,letterSpacing:'.2em',color:'#B0A898',verticalAlign:'middle',marginLeft:10,textTransform:'uppercase' }}>by PSC Agent</span>
+      <nav style={{ position:'sticky',top:0,zIndex:200,background:'rgba(248,251,255,.92)',backdropFilter:'blur(16px)',WebkitBackdropFilter:'blur(16px)',borderBottom:'1px solid #D6E4F0',padding:'0 60px',height:62,display:'flex',alignItems:'center' }}>
+        <div style={{ fontFamily:DISPLAY,fontSize:21,letterSpacing:'.1em',color:'#1B3A6B',flex:1 }}>
+          AURA <span style={{ fontFamily:SANS,fontSize:9,letterSpacing:'.2em',color:'#7CA3D4',verticalAlign:'middle',marginLeft:10,textTransform:'uppercase' }}>by PSC Agent</span>
         </div>
         <div style={{ display:'flex',gap:6,fontFamily:SANS,alignItems:'center' }}>
-          <button onClick={() => setView('login')} className="nav-login" style={{ background:'transparent',border:'none',color:'#B0A898',fontSize:13,padding:'8px 20px',borderRadius:7,letterSpacing:'.04em' }}>Client Login</button>
-          <button onClick={() => setView('login')} className="nav-cta" style={{ background:'#0E0C0A',color:'#FDFCF9',border:'none',padding:'10px 24px',borderRadius:7,fontSize:13,fontWeight:500,letterSpacing:'.06em' }}>Start Free Trial</button>
+          <button onClick={() => setView('login')} className="nav-login" style={{ background:'transparent',border:'none',color:'#7CA3D4',fontSize:13,padding:'8px 20px',borderRadius:7,letterSpacing:'.04em' }}>Client Login</button>
+          <button onClick={() => setView('login')} className="nav-cta" style={{ background:'#1B3A6B',color:'#F8FBFF',border:'none',padding:'10px 24px',borderRadius:7,fontSize:13,fontWeight:500,letterSpacing:'.06em' }}>Start Free Trial</button>
         </div>
       </nav>
 
       {/* ── HERO ── */}
-      <section style={{ minHeight:'92vh',display:'flex',alignItems:'center',padding:'80px 60px',position:'relative',borderBottom:'1px solid #E8E2D9' }}>
+      <section style={{ minHeight:'92vh',display:'flex',alignItems:'center',padding:'80px 60px',position:'relative',borderBottom:'1px solid #D6E4F0' }}>
         {/* decorative line */}
-        <div style={{ position:'absolute',top:0,left:60,bottom:0,width:1,background:'linear-gradient(180deg,transparent,#E8E2D9 20%,#E8E2D9 80%,transparent)',pointerEvents:'none' }} />
-        <div style={{ position:'absolute',top:0,right:60,bottom:0,width:1,background:'linear-gradient(180deg,transparent,#E8E2D9 20%,#E8E2D9 80%,transparent)',pointerEvents:'none' }} />
+        <div style={{ position:'absolute',top:0,left:60,bottom:0,width:1,background:'linear-gradient(180deg,transparent,#D6E4F0 20%,#D6E4F0 80%,transparent)',pointerEvents:'none' }} />
+        <div style={{ position:'absolute',top:0,right:60,bottom:0,width:1,background:'linear-gradient(180deg,transparent,#D6E4F0 20%,#D6E4F0 80%,transparent)',pointerEvents:'none' }} />
 
         <div style={{ maxWidth:1100,margin:'0 auto',width:'100%',display:'grid',gridTemplateColumns:'1.1fr 1fr',gap:80,alignItems:'center' }}>
 
           {/* Left */}
           <div>
-            <div className="fu" style={{ display:'inline-block',fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'#B0A898',textTransform:'uppercase',marginBottom:28,borderBottom:'1px solid #E8E2D9',paddingBottom:12 }}>
+            <div className="fu" style={{ display:'inline-block',fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'#7CA3D4',textTransform:'uppercase',marginBottom:28,borderBottom:'1px solid #D6E4F0',paddingBottom:12 }}>
               AI Receptionist · Beauty Businesses
             </div>
 
             <h1 className="fu d1" style={{ fontSize:72,lineHeight:1.02,fontWeight:400,marginBottom:28,letterSpacing:'-.02em',fontFamily:DISPLAY }}>
               One AI.<br />
-              <span style={{ fontStyle:'italic',color:'#6B5E52' }}>Every channel.</span><br />
+              <span style={{ fontStyle:'italic',color:'#2E5BA8' }}>Every channel.</span><br />
               Zero missed bookings.
             </h1>
 
-            <p className="fu d2" style={{ fontFamily:SANS,fontSize:16,color:'#7A6E65',lineHeight:1.85,marginBottom:40,maxWidth:420 }}>
+            <p className="fu d2" style={{ fontFamily:SANS,fontSize:16,color:'#4A6FA5',lineHeight:1.85,marginBottom:40,maxWidth:420 }}>
               AURA handles your calls, WhatsApp, Instagram DMs, SMS and email — so your clients always get a reply, no matter where they reach out.
             </p>
 
             <div className="fu d3" style={{ display:'flex',gap:12,marginBottom:40 }}>
-              <button onClick={() => setView('login')} className="cta-btn" style={{ background:'#0E0C0A',color:'#FDFCF9',border:'none',padding:'15px 32px',borderRadius:8,fontSize:14,fontFamily:SANS,fontWeight:500,letterSpacing:'.06em' }}>
+              <button onClick={() => setView('login')} className="cta-btn" style={{ background:'#1B3A6B',color:'#F8FBFF',border:'none',padding:'15px 32px',borderRadius:8,fontSize:14,fontFamily:SANS,fontWeight:500,letterSpacing:'.06em' }}>
                 Start 14-Day Free Trial
               </button>
-              <button onClick={() => setView('login')} className="ghost-btn" style={{ background:'transparent',color:'#0E0C0A',border:'1px solid #D4CCC2',padding:'15px 24px',borderRadius:8,fontSize:14,fontFamily:SANS,letterSpacing:'.04em' }}>
+              <button onClick={() => setView('login')} className="ghost-btn" style={{ background:'transparent',color:'#1B3A6B',border:'1px solid #A8C4E0',padding:'15px 24px',borderRadius:8,fontSize:14,fontFamily:SANS,letterSpacing:'.04em' }}>
                 Client Login →
               </button>
             </div>
 
-            <div className="fu d4" style={{ fontFamily:SANS,fontSize:11,color:'#B0A898',letterSpacing:'.06em' }}>
+            <div className="fu d4" style={{ fontFamily:SANS,fontSize:11,color:'#7CA3D4',letterSpacing:'.06em' }}>
               No card required · Cancel any time · Live in 24 hours
             </div>
           </div>
@@ -189,14 +189,14 @@ function Landing({ setView }) {
           {/* Right — editorial feature block */}
           <div className="fu d2" style={{ position:'relative' }}>
             {/* Main card */}
-            <div style={{ background:'#fff',border:'1px solid #E8E2D9',borderRadius:20,overflow:'hidden',boxShadow:'0 8px 40px rgba(14,12,10,.06)' }}>
+            <div style={{ background:'#fff',border:'1px solid #D6E4F0',borderRadius:20,overflow:'hidden',boxShadow:'0 8px 40px rgba(27,58,107,.06)' }}>
               {/* Card header */}
-              <div style={{ padding:'24px 28px',borderBottom:'1px solid #F0EBE3',display:'flex',alignItems:'center',justifyContent:'space-between' }}>
+              <div style={{ padding:'24px 28px',borderBottom:'1px solid #E8F0FA',display:'flex',alignItems:'center',justifyContent:'space-between' }}>
                 <div>
-                  <div style={{ fontFamily:DISPLAY,fontSize:16,color:'#0E0C0A',letterSpacing:'.04em' }}>AURA is active</div>
-                  <div style={{ fontFamily:SANS,fontSize:11,color:'#B0A898',marginTop:2 }}>Monitoring all channels</div>
+                  <div style={{ fontFamily:DISPLAY,fontSize:16,color:'#1B3A6B',letterSpacing:'.04em' }}>AURA is active</div>
+                  <div style={{ fontFamily:SANS,fontSize:11,color:'#7CA3D4',marginTop:2 }}>Monitoring all channels</div>
                 </div>
-                <div style={{ display:'flex',alignItems:'center',gap:8,background:'#F5F0E8',borderRadius:100,padding:'6px 14px' }}>
+                <div style={{ display:'flex',alignItems:'center',gap:8,background:'#EEF4FB',borderRadius:100,padding:'6px 14px' }}>
                   <div style={{ width:7,height:7,borderRadius:'50%',background:'#4CAF50' }} />
                   <span style={{ fontFamily:SANS,fontSize:11,color:'#5A6B5A',fontWeight:500 }}>Online</span>
                 </div>
@@ -204,35 +204,35 @@ function Landing({ setView }) {
 
               {/* Live feed */}
               {[
-                { ch:'Call',      msg:'Sophie M. — Mega Volume booked for 14 Nov', time:'just now',  dot:'#0E0C0A' },
+                { ch:'Call',      msg:'Sophie M. — Mega Volume booked for 14 Nov', time:'just now',  dot:'#1B3A6B' },
                 { ch:'WhatsApp',  msg:'Jade R. — Asking about infill prices',        time:'2m ago',   dot:'#4CAF50' },
                 { ch:'Instagram', msg:'New enquiry — fullset consultation',           time:'5m ago',   dot:'#E040FB' },
                 { ch:'SMS',       msg:'Reminder sent — Layla B. tomorrow 10am',      time:'12m ago',  dot:'#2196F3' },
                 { ch:'Email',     msg:'Priya K. — Rescheduled to 19 Nov 11am',       time:'18m ago',  dot:'#FF9800' },
               ].map((item,i)=>(
-                <div key={i} style={{ padding:'14px 28px',borderBottom:i<4?'1px solid #F5F0E8':'none',display:'flex',alignItems:'center',gap:14 }}>
+                <div key={i} style={{ padding:'14px 28px',borderBottom:i<4?'1px solid #EEF4FB':'none',display:'flex',alignItems:'center',gap:14 }}>
                   <div style={{ width:8,height:8,borderRadius:'50%',background:item.dot,flexShrink:0 }} />
                   <div style={{ flex:1,minWidth:0 }}>
-                    <div style={{ fontFamily:SANS,fontSize:11,fontWeight:600,color:'#B0A898',letterSpacing:'.1em',textTransform:'uppercase',marginBottom:2 }}>{item.ch}</div>
-                    <div style={{ fontFamily:SANS,fontSize:13,color:'#0E0C0A',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap' }}>{item.msg}</div>
+                    <div style={{ fontFamily:SANS,fontSize:11,fontWeight:600,color:'#7CA3D4',letterSpacing:'.1em',textTransform:'uppercase',marginBottom:2 }}>{item.ch}</div>
+                    <div style={{ fontFamily:SANS,fontSize:13,color:'#1B3A6B',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap' }}>{item.msg}</div>
                   </div>
-                  <div style={{ fontFamily:SANS,fontSize:11,color:'#C8C0B6',flexShrink:0 }}>{item.time}</div>
+                  <div style={{ fontFamily:SANS,fontSize:11,color:'#94B8D8',flexShrink:0 }}>{item.time}</div>
                 </div>
               ))}
 
               {/* Stats footer */}
-              <div style={{ padding:'18px 28px',background:'#F9F6F1',display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:0 }}>
+              <div style={{ padding:'18px 28px',background:'#F4F8FC',display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:0 }}>
                 {[{val:'8',lbl:'Handled today'},{val:'5',lbl:'Bookings made'},{val:'0',lbl:'Missed'}].map((s,i)=>(
-                  <div key={i} style={{ textAlign:'center',borderRight:i<2?'1px solid #E8E2D9':'' }}>
-                    <div style={{ fontFamily:DISPLAY,fontSize:26,color:'#0E0C0A',fontWeight:400 }}>{s.val}</div>
-                    <div style={{ fontFamily:SANS,fontSize:10,color:'#B0A898',letterSpacing:'.08em' }}>{s.lbl}</div>
+                  <div key={i} style={{ textAlign:'center',borderRight:i<2?'1px solid #D6E4F0':'' }}>
+                    <div style={{ fontFamily:DISPLAY,fontSize:26,color:'#1B3A6B',fontWeight:400 }}>{s.val}</div>
+                    <div style={{ fontFamily:SANS,fontSize:10,color:'#7CA3D4',letterSpacing:'.08em' }}>{s.lbl}</div>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Floating label */}
-            <div style={{ position:'absolute',bottom:-18,right:24,background:'#0E0C0A',color:'#FDFCF9',fontFamily:SANS,fontSize:11,padding:'10px 18px',borderRadius:100,letterSpacing:'.08em',boxShadow:'0 8px 24px rgba(14,12,10,.15)' }}>
+            <div style={{ position:'absolute',bottom:-18,right:24,background:'#1B3A6B',color:'#F8FBFF',fontFamily:SANS,fontSize:11,padding:'10px 18px',borderRadius:100,letterSpacing:'.08em',boxShadow:'0 8px 24px rgba(27,58,107,.15)' }}>
               All 5 channels active
             </div>
           </div>
@@ -240,34 +240,34 @@ function Landing({ setView }) {
       </section>
 
       {/* ── CHANNEL TICKER ── */}
-      <div style={{ borderBottom:'1px solid #E8E2D9',padding:'18px 0',overflow:'hidden',background:'#FDFCF9' }}>
+      <div style={{ borderBottom:'1px solid #D6E4F0',padding:'18px 0',overflow:'hidden',background:'#F8FBFF' }}>
         <div className="ticker-track">
           {[...CHANNELS,...CHANNELS].map((c,i)=>(
-            <span key={i} style={{ fontFamily:SANS,fontSize:12,color:'#B0A898',letterSpacing:'.12em',textTransform:'uppercase',padding:'0 40px',whiteSpace:'nowrap' }}>
-              {c.name} <span style={{ color:'#D4CCC2',marginLeft:40 }}>·</span>
+            <span key={i} style={{ fontFamily:SANS,fontSize:12,color:'#7CA3D4',letterSpacing:'.12em',textTransform:'uppercase',padding:'0 40px',whiteSpace:'nowrap' }}>
+              {c.name} <span style={{ color:'#A8C4E0',marginLeft:40 }}>·</span>
             </span>
           ))}
         </div>
       </div>
 
       {/* ── CHANNELS ── */}
-      <section style={{ padding:'100px 60px',borderBottom:'1px solid #E8E2D9' }}>
+      <section style={{ padding:'100px 60px',borderBottom:'1px solid #D6E4F0' }}>
         <div style={{ maxWidth:1100,margin:'0 auto' }}>
           <div style={{ display:'grid',gridTemplateColumns:'1fr 2fr',gap:80,alignItems:'start' }}>
             <div style={{ position:'sticky',top:80 }}>
-              <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'#B0A898',textTransform:'uppercase',marginBottom:16 }}>The Channels</div>
-              <h2 style={{ fontFamily:DISPLAY,fontSize:44,fontWeight:400,color:'#0E0C0A',lineHeight:1.15,marginBottom:20 }}>Wherever your clients reach out</h2>
-              <p style={{ fontFamily:SANS,fontSize:14,color:'#7A6E65',lineHeight:1.8 }}>AURA monitors every channel simultaneously. No client goes unanswered, no booking gets missed.</p>
+              <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'#7CA3D4',textTransform:'uppercase',marginBottom:16 }}>The Channels</div>
+              <h2 style={{ fontFamily:DISPLAY,fontSize:44,fontWeight:400,color:'#1B3A6B',lineHeight:1.15,marginBottom:20 }}>Wherever your clients reach out</h2>
+              <p style={{ fontFamily:SANS,fontSize:14,color:'#4A6FA5',lineHeight:1.8 }}>AURA monitors every channel simultaneously. No client goes unanswered, no booking gets missed.</p>
             </div>
             <div>
               {CHANNELS.map((ch,i)=>(
                 <div key={i} className="ch-row" style={{ display:'grid',gridTemplateColumns:'48px 1fr',gap:24,padding:'28px 24px',borderRadius:12,marginBottom:4,transition:'background .2s' }}>
-                  <div className="ch-num" style={{ fontFamily:DISPLAY,fontSize:32,color:'#D4CCC2',lineHeight:1,transition:'color .2s' }}>
+                  <div className="ch-num" style={{ fontFamily:DISPLAY,fontSize:32,color:'#A8C4E0',lineHeight:1,transition:'color .2s' }}>
                     {String(i+1).padStart(2,'0')}
                   </div>
                   <div>
-                    <div style={{ fontFamily:DISPLAY,fontSize:22,color:'#0E0C0A',marginBottom:6 }}>{ch.name}</div>
-                    <div style={{ fontFamily:SANS,fontSize:14,color:'#7A6E65',lineHeight:1.7 }}>{ch.desc}</div>
+                    <div style={{ fontFamily:DISPLAY,fontSize:22,color:'#1B3A6B',marginBottom:6 }}>{ch.name}</div>
+                    <div style={{ fontFamily:SANS,fontSize:14,color:'#4A6FA5',lineHeight:1.7 }}>{ch.desc}</div>
                   </div>
                 </div>
               ))}
@@ -277,29 +277,29 @@ function Landing({ setView }) {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section style={{ padding:'100px 60px',background:'#F5F0E8',borderBottom:'1px solid #E8E2D9' }}>
+      <section style={{ padding:'100px 60px',background:'#EEF4FB',borderBottom:'1px solid #D6E4F0' }}>
         <div style={{ maxWidth:800,margin:'0 auto',textAlign:'center' }}>
-          <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'#B0A898',textTransform:'uppercase',marginBottom:52 }}>From Studios Using AURA</div>
-          <div style={{ fontFamily:DISPLAY,fontSize:32,fontWeight:400,color:'#0E0C0A',lineHeight:1.4,marginBottom:32,fontStyle:'italic',minHeight:120 }}>
+          <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'#7CA3D4',textTransform:'uppercase',marginBottom:52 }}>From Studios Using AURA</div>
+          <div style={{ fontFamily:DISPLAY,fontSize:32,fontWeight:400,color:'#1B3A6B',lineHeight:1.4,marginBottom:32,fontStyle:'italic',minHeight:120 }}>
             "{TESTIMONIALS[activeTestimonial].quote}"
           </div>
-          <div style={{ fontFamily:SANS,fontSize:13,color:'#7A6E65',marginBottom:36 }}>
-            {TESTIMONIALS[activeTestimonial].name} <span style={{ color:'#C8C0B6' }}>·</span> {TESTIMONIALS[activeTestimonial].studio}
+          <div style={{ fontFamily:SANS,fontSize:13,color:'#4A6FA5',marginBottom:36 }}>
+            {TESTIMONIALS[activeTestimonial].name} <span style={{ color:'#94B8D8' }}>·</span> {TESTIMONIALS[activeTestimonial].studio}
           </div>
           <div style={{ display:'flex',gap:10,justifyContent:'center' }}>
             {TESTIMONIALS.map((_,i)=>(
-              <button key={i} onClick={()=>setActiveTestimonial(i)} style={{ width:i===activeTestimonial?28:8,height:8,borderRadius:100,background:i===activeTestimonial?'#0E0C0A':'#D4CCC2',border:'none',cursor:'pointer',transition:'all .3s',padding:0 }} />
+              <button key={i} onClick={()=>setActiveTestimonial(i)} style={{ width:i===activeTestimonial?28:8,height:8,borderRadius:100,background:i===activeTestimonial?'#1B3A6B':'#A8C4E0',border:'none',cursor:'pointer',transition:'all .3s',padding:0 }} />
             ))}
           </div>
         </div>
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section style={{ padding:'100px 60px',borderBottom:'1px solid #E8E2D9' }}>
+      <section style={{ padding:'100px 60px',borderBottom:'1px solid #D6E4F0' }}>
         <div style={{ maxWidth:1100,margin:'0 auto' }}>
           <div style={{ textAlign:'center',marginBottom:72 }}>
-            <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'#B0A898',textTransform:'uppercase',marginBottom:16 }}>How It Works</div>
-            <h2 style={{ fontFamily:DISPLAY,fontSize:44,fontWeight:400,color:'#0E0C0A',lineHeight:1.2 }}>Live before your next client reaches out</h2>
+            <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'#7CA3D4',textTransform:'uppercase',marginBottom:16 }}>How It Works</div>
+            <h2 style={{ fontFamily:DISPLAY,fontSize:44,fontWeight:400,color:'#1B3A6B',lineHeight:1.2 }}>Live before your next client reaches out</h2>
           </div>
           <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:2 }}>
             {[
@@ -307,10 +307,10 @@ function Landing({ setView }) {
               {n:'02',t:'AURA handles everything',  b:'Clients reach out on any channel. AURA replies instantly, books them in, answers FAQs — around the clock.' },
               {n:'03',t:'Zero missed bookings',     b:'Reminders go out automatically before every appointment across every channel. No-shows become a thing of the past.' },
             ].map((h,i)=>(
-              <div key={i} style={{ padding:'48px 40px',borderRight:i<2?'1px solid #E8E2D9':'',position:'relative' }}>
-                <div style={{ fontFamily:DISPLAY,fontSize:80,fontWeight:400,color:'#F0EBE3',marginBottom:24,lineHeight:1 }}>{h.n}</div>
-                <h3 style={{ fontFamily:DISPLAY,fontSize:24,fontWeight:400,color:'#0E0C0A',marginBottom:14 }}>{h.t}</h3>
-                <p style={{ fontFamily:SANS,fontSize:14,color:'#7A6E65',lineHeight:1.85 }}>{h.b}</p>
+              <div key={i} style={{ padding:'48px 40px',borderRight:i<2?'1px solid #D6E4F0':'',position:'relative' }}>
+                <div style={{ fontFamily:DISPLAY,fontSize:80,fontWeight:400,color:'#E8F0FA',marginBottom:24,lineHeight:1 }}>{h.n}</div>
+                <h3 style={{ fontFamily:DISPLAY,fontSize:24,fontWeight:400,color:'#1B3A6B',marginBottom:14 }}>{h.t}</h3>
+                <p style={{ fontFamily:SANS,fontSize:14,color:'#4A6FA5',lineHeight:1.85 }}>{h.b}</p>
               </div>
             ))}
           </div>
@@ -318,48 +318,48 @@ function Landing({ setView }) {
       </section>
 
       {/* ── PRICING ── */}
-      <section style={{ padding:'100px 60px',background:'#F9F6F1',borderBottom:'1px solid #E8E2D9' }}>
+      <section style={{ padding:'100px 60px',background:'#F4F8FC',borderBottom:'1px solid #D6E4F0' }}>
         <div style={{ textAlign:'center',marginBottom:64 }}>
-          <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'#B0A898',textTransform:'uppercase',marginBottom:16 }}>Pricing</div>
-          <h2 style={{ fontFamily:DISPLAY,fontSize:44,fontWeight:400,color:'#0E0C0A' }}>Straightforward. No surprises.</h2>
-          <p style={{ fontFamily:SANS,color:'#B0A898',marginTop:12,fontSize:14 }}>14-day free trial on all plans. Cancel anytime.</p>
+          <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.25em',color:'#7CA3D4',textTransform:'uppercase',marginBottom:16 }}>Pricing</div>
+          <h2 style={{ fontFamily:DISPLAY,fontSize:44,fontWeight:400,color:'#1B3A6B' }}>Straightforward. No surprises.</h2>
+          <p style={{ fontFamily:SANS,color:'#7CA3D4',marginTop:12,fontSize:14 }}>14-day free trial on all plans. Cancel anytime.</p>
         </div>
         <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:16,maxWidth:980,margin:'0 auto' }}>
           {PRICING.map((p)=>(
-            <div key={p.tier} className="price-card" style={{ background:'#fff',border:`1px solid ${p.highlight?'#0E0C0A':'#E8E2D9'}`,borderRadius:16,padding:'36px 30px',position:'relative',boxShadow:p.highlight?'0 12px 40px rgba(14,12,10,.1)':'0 2px 12px rgba(14,12,10,.04)' }}>
-              {p.badge && <div style={{ position:'absolute',top:-12,left:'50%',transform:'translateX(-50%)',background:'#0E0C0A',color:'#FDFCF9',fontFamily:SANS,fontSize:10,fontWeight:600,padding:'4px 16px',borderRadius:100,letterSpacing:'.1em',whiteSpace:'nowrap' }}>{p.badge}</div>}
-              <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.2em',color:'#B0A898',textTransform:'uppercase',marginBottom:12 }}>{p.tier}</div>
+            <div key={p.tier} className="price-card" style={{ background:'#fff',border:`1px solid ${p.highlight?'#1B3A6B':'#D6E4F0'}`,borderRadius:16,padding:'36px 30px',position:'relative',boxShadow:p.highlight?'0 12px 40px rgba(27,58,107,.1)':'0 2px 12px rgba(27,58,107,.04)' }}>
+              {p.badge && <div style={{ position:'absolute',top:-12,left:'50%',transform:'translateX(-50%)',background:'#1B3A6B',color:'#F8FBFF',fontFamily:SANS,fontSize:10,fontWeight:600,padding:'4px 16px',borderRadius:100,letterSpacing:'.1em',whiteSpace:'nowrap' }}>{p.badge}</div>}
+              <div style={{ fontFamily:SANS,fontSize:10,letterSpacing:'.2em',color:'#7CA3D4',textTransform:'uppercase',marginBottom:12 }}>{p.tier}</div>
               <div style={{ marginBottom:8,display:'flex',alignItems:'baseline',gap:4 }}>
-                <span style={{ fontFamily:DISPLAY,fontSize:48,fontWeight:400,color:'#0E0C0A' }}>{p.price}</span>
-                <span style={{ fontFamily:SANS,fontSize:13,color:'#B0A898' }}>{p.period}</span>
+                <span style={{ fontFamily:DISPLAY,fontSize:48,fontWeight:400,color:'#1B3A6B' }}>{p.price}</span>
+                <span style={{ fontFamily:SANS,fontSize:13,color:'#7CA3D4' }}>{p.period}</span>
               </div>
-              <p style={{ fontFamily:SANS,fontSize:13,color:'#7A6E65',lineHeight:1.65,marginBottom:24,paddingBottom:24,borderBottom:'1px solid #F0EBE3' }}>{p.desc}</p>
+              <p style={{ fontFamily:SANS,fontSize:13,color:'#4A6FA5',lineHeight:1.65,marginBottom:24,paddingBottom:24,borderBottom:'1px solid #E8F0FA' }}>{p.desc}</p>
               <div style={{ marginBottom:28 }}>
                 {p.features.map((f,i)=>(
-                  <div key={i} style={{ fontFamily:SANS,fontSize:13,color:'#4A4440',padding:'8px 0',borderBottom:'1px solid #F5F0E8',display:'flex',gap:12,alignItems:'flex-start' }}>
-                    <span style={{ color:'#0E0C0A',flexShrink:0,marginTop:1 }}>—</span>{f}
+                  <div key={i} style={{ fontFamily:SANS,fontSize:13,color:'#2C4A7C',padding:'8px 0',borderBottom:'1px solid #EEF4FB',display:'flex',gap:12,alignItems:'flex-start' }}>
+                    <span style={{ color:'#1B3A6B',flexShrink:0,marginTop:1 }}>—</span>{f}
                   </div>
                 ))}
               </div>
-              <button onClick={() => setView('login')} className={p.highlight?'cta-btn':'ghost-btn'} style={{ width:'100%',background:p.highlight?'#0E0C0A':'transparent',color:p.highlight?'#FDFCF9':'#0E0C0A',border:`1px solid ${p.highlight?'#0E0C0A':'#D4CCC2'}`,padding:'13px 0',borderRadius:8,fontSize:13,fontFamily:SANS,fontWeight:500,letterSpacing:'.06em',cursor:'pointer' }}>{p.cta}</button>
+              <button onClick={() => setView('login')} className={p.highlight?'cta-btn':'ghost-btn'} style={{ width:'100%',background:p.highlight?'#1B3A6B':'transparent',color:p.highlight?'#F8FBFF':'#1B3A6B',border:`1px solid ${p.highlight?'#1B3A6B':'#A8C4E0'}`,padding:'13px 0',borderRadius:8,fontSize:13,fontFamily:SANS,fontWeight:500,letterSpacing:'.06em',cursor:'pointer' }}>{p.cta}</button>
             </div>
           ))}
         </div>
       </section>
 
       {/* ── FAQ ── */}
-      <section style={{ padding:'80px 60px',borderBottom:'1px solid #E8E2D9' }}>
+      <section style={{ padding:'80px 60px',borderBottom:'1px solid #D6E4F0' }}>
         <div style={{ maxWidth:680,margin:'0 auto' }}>
           <div style={{ textAlign:'center',marginBottom:52 }}>
-            <h2 style={{ fontFamily:DISPLAY,fontSize:40,fontWeight:400,color:'#0E0C0A' }}>Questions</h2>
+            <h2 style={{ fontFamily:DISPLAY,fontSize:40,fontWeight:400,color:'#1B3A6B' }}>Questions</h2>
           </div>
           {FAQS.map((f,i)=>(
-            <div key={i} style={{ borderBottom:'1px solid #E8E2D9' }}>
-              <button className="fq-btn" onClick={()=>setOpenFaq(openFaq===i?null:i)} style={{ width:'100%',background:'none',border:'none',color:'#6B5E52',padding:'22px 0',textAlign:'left',cursor:'pointer',display:'flex',justifyContent:'space-between',gap:20,fontFamily:DISPLAY,fontSize:20,lineHeight:1.3 }}>
+            <div key={i} style={{ borderBottom:'1px solid #D6E4F0' }}>
+              <button className="fq-btn" onClick={()=>setOpenFaq(openFaq===i?null:i)} style={{ width:'100%',background:'none',border:'none',color:'#2E5BA8',padding:'22px 0',textAlign:'left',cursor:'pointer',display:'flex',justifyContent:'space-between',gap:20,fontFamily:DISPLAY,fontSize:20,lineHeight:1.3 }}>
                 {f.q}
-                <span style={{ color:'#C8C0B6',fontSize:24,flexShrink:0,display:'inline-block',transition:'transform .2s',transform:openFaq===i?'rotate(45deg)':'none',marginTop:2 }}>+</span>
+                <span style={{ color:'#94B8D8',fontSize:24,flexShrink:0,display:'inline-block',transition:'transform .2s',transform:openFaq===i?'rotate(45deg)':'none',marginTop:2 }}>+</span>
               </button>
-              {openFaq===i && <div style={{ fontFamily:SANS,fontSize:14,color:'#7A6E65',lineHeight:1.88,paddingBottom:22,animation:'slideAcc .3s ease' }}>{f.a}</div>}
+              {openFaq===i && <div style={{ fontFamily:SANS,fontSize:14,color:'#4A6FA5',lineHeight:1.88,paddingBottom:22,animation:'slideAcc .3s ease' }}>{f.a}</div>}
             </div>
           ))}
         </div>
@@ -368,27 +368,27 @@ function Landing({ setView }) {
       {/* ── FINAL CTA ── */}
       <section style={{ padding:'140px 60px',textAlign:'center',position:'relative',overflow:'hidden' }}>
         {/* large decorative letter */}
-        <div style={{ position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',fontFamily:DISPLAY,fontSize:480,fontWeight:400,color:'#F5F0E8',lineHeight:1,pointerEvents:'none',userSelect:'none',zIndex:0,letterSpacing:'-.05em' }}>A</div>
+        <div style={{ position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',fontFamily:DISPLAY,fontSize:480,fontWeight:400,color:'#EEF4FB',lineHeight:1,pointerEvents:'none',userSelect:'none',zIndex:0,letterSpacing:'-.05em' }}>A</div>
         <div style={{ position:'relative',zIndex:1 }}>
-          <h2 style={{ fontFamily:DISPLAY,fontSize:64,fontWeight:400,color:'#0E0C0A',lineHeight:1.08,marginBottom:20,letterSpacing:'-.01em' }}>
+          <h2 style={{ fontFamily:DISPLAY,fontSize:64,fontWeight:400,color:'#1B3A6B',lineHeight:1.08,marginBottom:20,letterSpacing:'-.01em' }}>
             You do the lashes.<br />
-            <span style={{ fontStyle:'italic',color:'#6B5E52' }}>AURA does the rest.</span>
+            <span style={{ fontStyle:'italic',color:'#2E5BA8' }}>AURA does the rest.</span>
           </h2>
-          <p style={{ fontFamily:SANS,color:'#7A6E65',fontSize:15,marginBottom:44,lineHeight:1.8,maxWidth:460,margin:'0 auto 44px' }}>
+          <p style={{ fontFamily:SANS,color:'#4A6FA5',fontSize:15,marginBottom:44,lineHeight:1.8,maxWidth:460,margin:'0 auto 44px' }}>
             Join beauty professionals who stopped losing money to missed bookings across every channel.
           </p>
-          <button onClick={() => setView('login')} className="cta-btn" style={{ background:'#0E0C0A',color:'#FDFCF9',border:'none',padding:'18px 52px',borderRadius:8,fontSize:16,fontFamily:SANS,fontWeight:500,letterSpacing:'.08em',cursor:'pointer' }}>
+          <button onClick={() => setView('login')} className="cta-btn" style={{ background:'#1B3A6B',color:'#F8FBFF',border:'none',padding:'18px 52px',borderRadius:8,fontSize:16,fontFamily:SANS,fontWeight:500,letterSpacing:'.08em',cursor:'pointer' }}>
             Start Your Free Trial Today
           </button>
-          <p style={{ fontFamily:SANS,fontSize:11,color:'#C8C0B6',marginTop:18 }}>14 days free · No card required · Cancel anytime</p>
+          <p style={{ fontFamily:SANS,fontSize:11,color:'#94B8D8',marginTop:18 }}>14 days free · No card required · Cancel anytime</p>
         </div>
       </section>
 
-      <footer style={{ borderTop:'1px solid #E8E2D9',padding:'40px 60px',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:16,background:'#FDFCF9' }}>
-        <div style={{ fontFamily:DISPLAY,fontSize:17,color:'#0E0C0A',letterSpacing:'.08em' }}>AURA <span style={{ fontFamily:SANS,fontSize:9,letterSpacing:'.18em',color:'#C8C0B6',verticalAlign:'middle',marginLeft:8 }}>BY PSC AGENT</span></div>
-        <div style={{ fontFamily:SANS,fontSize:11,color:'#C8C0B6' }}>© 2025 R and G Enterprise Solutions. All rights reserved.</div>
+      <footer style={{ borderTop:'1px solid #D6E4F0',padding:'40px 60px',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:16,background:'#F8FBFF' }}>
+        <div style={{ fontFamily:DISPLAY,fontSize:17,color:'#1B3A6B',letterSpacing:'.08em' }}>AURA <span style={{ fontFamily:SANS,fontSize:9,letterSpacing:'.18em',color:'#94B8D8',verticalAlign:'middle',marginLeft:8 }}>BY PSC AGENT</span></div>
+        <div style={{ fontFamily:SANS,fontSize:11,color:'#94B8D8' }}>© 2025 R and G Enterprise Solutions. All rights reserved.</div>
         <div style={{ display:'flex',gap:24,fontFamily:SANS,fontSize:12 }}>
-          {['Privacy','Terms','Contact'].map(l=><a key={l} style={{ color:'#C8C0B6',textDecoration:'none',cursor:'pointer' }}>{l}</a>)}
+          {['Privacy','Terms','Contact'].map(l=><a key={l} style={{ color:'#94B8D8',textDecoration:'none',cursor:'pointer' }}>{l}</a>)}
         </div>
       </footer>
     </div>
